@@ -1,0 +1,4 @@
+/node_modules
+/bower_components
+/config/config.production.json
+/config/config.development.json

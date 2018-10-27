@@ -1,0 +1,35 @@
+{
+  "name": "ezdmp",
+  "version": "1.0.0",
+  "description": "ezDMP Data Management Plan Site",
+  "private": true,
+  "scripts": {
+    "postinstall": "grunt &",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "ajv": "^6.5.4",
+    "ajv-keywords": "^3.2.0",
+    "grunt": "^1.0.1",
+    "grunt-bower-install-simple": "^1.2.4",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "^2.2.0",
+    "grunt-contrib-less": "^1.4.1",
+    "grunt-contrib-uglify": "^3.0.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-ng-constant": "^2.0.1",
+    "lodash": "^4.17.4",
+    "webpack": "^3.10.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mgds/EZDMP.git"
+  },
+  "author": "John Morton",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/mgds/EZDMP/issues"
+  },
+  "homepage": "https://github.com/mgds/EZDMP#readme"
+}

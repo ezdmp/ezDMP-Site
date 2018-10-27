@@ -1,0 +1,146 @@
+<div class="container">
+  <div class="col-md-12 col-xs-12 savebuttons">
+    <button class="pull-left btn btn-primary" ng-click="goBack()">Save and Return to Proposal Info</button>
+  </div>
+  <div class="clearfix"></div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Software</div>
+        <div class="panel-body">
+            <div class="col-md-6 col-xs-12">
+                <div class="form-group">
+                    <label for="dataType">Scientific Field</label>
+                    <select class="form-control selectpicker"  ng-options="item.id as item.label for item in subdisciplines" ng-model="subdiscipline" ng-change="subdisciplineSet()">
+                        <option value="">- Select a scientific field -</option>
+                    </select>
+                    <input type="text" class="form-control" ng-show="subdiscipline=='other'" ng-model="product.productId" placeholder="Subdiscipline">
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <div class="form-group">
+                  <label for="investigators">Responsible Investigator(s)</label>
+                  <input type="text" class="form-control" id="investigators" placeholder="Last Name(s)" ng-model="product.responsibleInvestigators">
+                </div>
+            </div>
+            <div class="col-md-12 col-xs-12">
+                <div class="form-group">
+                    <label for="materialDescription">Software Description</label>
+                    <textarea class="form-control" id="materialDescription" placeholder="What will this software do? Include software type, processing, analysis, etc." rows="3" ng-model="product.description"></textarea>
+                </div>
+            </div>
+            <div class="col-md-12 col-xs-12">
+                <div class="form-group">
+                    <label for="depend">Software Dependencies</label>
+                    <textarea class="form-control" id="depend" placeholder="What does this software require as input? Does this software build upon an existing product or library? Are there other dependencies?" rows="2" ng-model="product.dependencies"></textarea>
+                </div>
+            </div>
+            <div class="col-md-12 col-xs-12">
+                <div class="form-group">
+                    <label for="format">Software Format/Language</label>
+                    <textarea class="form-control" id="format" placeholder="What programming/scripting languages will be used? Will any specific frameworks be used? What metadata/standards will be used?" rows="2" ng-model="product.productFormat"></textarea>
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <div class="form-group">
+                    <label for="formats">Anticipated Volume</label>
+                    <input type="text" class="form-control" id="formats" placeholder="How big will the code base be?" ng-model="product.anticipatedVolume">
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <div class="form-group">
+                    <label for="repository">Intended Repository</label>
+                    <select class="form-control selectpicker"  ng-options="item.id as item.label for item in repositories" ng-model="repository" ng-change="repositorySet()">
+                        <option value="">- Select a Software Repository -</option>
+                    </select>
+                    <input type="text" class="form-control" ng-show="repository=='other'" ng-model="product.repository" placeholder="Repository Name">
+                </div>
+                <div class="well well-sm" ng-show="repositoryDescription">{{repositoryDescription}}</div>
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <div class="form-group">
+                    <label for="timeline">Release Timeline</label>
+                    <input type="text" class="form-control" id="timeline" placeholder="How long before this software is released to the public?" ng-model="product.releaseTimeline">
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <div class="form-group">
+                    <label for="license">License for Reuse</label>
+                    <select class="form-control selectpicker" ng-model="license" ng-change="licenseSet()">
+                        <option label="- Select a license -" value="">- Select a license -</option>
+                        <option ng-repeat="item in licenses" value="{{item.id}}">{{item.label}}</option>
+                        <option label="Other" value="other">Other</option>
+                    </select>
+                    <input type="text" class="form-control" ng-show="license==='other'" ng-model="product.license" placeholder="License Name/Description">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">Product Creation Plan</div>
+                    <div class="panel-body">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="form-group">
+                                <label for="creationDescription">Description</label>
+                                <textarea class="form-control" id="creationDescription" placeholder="How will this software be developed?" rows="2" ng-model="product.creationDescription"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="sharedInstrumentation">Will shared instrumentation be used? <small><i>(optional)</i></small></label>
+                                <select class="form-control selectpicker" ng-model="product.sharedInstrumentation">
+                                    <option label="- Select a Shared Instrumentation -" value="">- Select a Shared Instrumentation -</option>
+                                    <option ng-repeat="item in vocab.shared_instrumentation" value="{{item.id}}">{{item.label}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">Research Product Relationships</div>
+                    <div class="panel-body">
+                        <div class="col-md-12 col-xs-12">
+                          <div ng-repeat="rel in product.relationships">
+                            <div class="col-md-1 hidden-sm hidden-xs">
+                              <div class="text-right">{{vocab.label(vocab.relationships,rel.relationship)}}</div>
+                              <div class="clearfix"></div>
+                            </div>
+                            <div class="hidden-md hidden-lg">
+                              <div class="col-xs-12">
+                              <div class="text-left" style="font-style:italic;padding:5px;">{{vocab.label(vocab.relationships,rel.relationship)}}</div>
+                              </div>
+                              <div class="clearfix"></div>
+                            </div>
+                            <div class="col-md-11">
+                            <div class="panel panel-default">
+                              <div class="panel-heading"><span ng-if="dmpModel.dmp.products[dmpModel.productIndex(rel.id)].productId">{{vocab.label(vocab.subdisciplines,dmpModel.dmp.products[dmpModel.productIndex(rel.id)].productId) }} </span>{{vocab.label(vocab.product_types,dmpModel.dmp.products[dmpModel.productIndex(rel.id)].productType)}}</div>
+                              <div class="panel-body">
+                                <div class="col-md-10">
+                                    <div style="font-style:italic">{{dmpModel.dmp.products[dmpModel.productIndex(rel.id)].responsibleInvestigators}}<span ng-if="!dmpModel.dmp.products[dmpModel.productIndex(rel.id)].responsibleInvestigators" style="color:gray"><i>No Investigators Provided</i></span></div>
+                                    {{dmpModel.dmp.products[dmpModel.productIndex(rel.id)].description}}
+                                </div>
+                                <div class="col-md-2">
+                                  <button class="btn btn-default pull-right" ng-click="dmpModel.removeRelationship(rel.id)" style="margin:0px 5px">Remove</button>
+                                </div>
+                              </div>
+                            </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-12 col-xs-12">
+                            <div class="col-md-12 col-xs-12 savebuttons">
+                              <button class="pull-left btn btn-primary" ng-click="addProductRelationship()">Define Relationship to Proposed Research Product</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  <div class="col-md-12 col-xs-12 savebuttons">
+    <button class="pull-left btn btn-primary" ng-click="goBack()">Save and Return to Proposal Info</button>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+{
+  "base" : "",
+  "api" : "/api/",
+  "apiKey": "[YOUR API KEY]",
+  "clientId": "[YOUR ID HERE]",
+  "redirectUri": "/auth/google"
+}

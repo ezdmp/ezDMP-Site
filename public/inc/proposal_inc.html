@@ -1,0 +1,106 @@
+<div class="container">
+  <div class="col-md-12 col-xs-12 savebuttons">
+    <button class="pull-left btn btn-primary" ng-click="saveReturn()">Save and Return to My DMPs</button>
+    <button class="pull-left btn btn-primary" ng-click="saveContinue()">Save and Continue</button>
+  </div>
+  <div class="clearfix"></div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Proposal Information</div>
+        <div class="panel-body">
+            <div class="col-md-12 col-xs-12">
+                <div class="form-group">
+                    <label for="projectTitle">Project Title</label>
+                    <textarea class="form-control" id="projectTitle" placeholder="Name of proposal being submitted" rows="2" ng-model="dmpModel.dmp.proposal.title"></textarea>
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <div class="form-group">
+                    <label for="pi">Lead PI</label>
+                    <input type="text" class="form-control" id="pi" placeholder="First and Last Name" ng-model="dmpModel.dmp.proposal.leadPi">
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <div class="form-group">
+                    <label for="inst">Lead PI Institution</label>
+                    <input type="text" class="form-control" id="inst" placeholder="Name of Institution" ng-model="dmpModel.dmp.proposal.leadPiInstitution">
+                </div>
+            </div>
+            <div class="col-md-12 col-xs-12">
+                <div class="form-group">
+                    <label for="copis">Co-PI(s)</label>
+                    <input type="text" class="form-control" id="copis" placeholder="Last Name (Institution)" ng-model="dmpModel.dmp.proposal.coPis">
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <div class="form-group">
+                    <label for="division">NSF Submission Target</label>
+                    <div ng-show="!directorate">
+                    <select class="form-control selectpicker" id="directorate" ng-model="directorate">
+                        <option label="- Select a Directorate -" value="">- Select a Directorate -</option>
+                        <option ng-repeat="item in vocab.directorates" value="{{item.id}}">{{item.label}}</option>
+                    </select>
+                    </div>
+                    <div ng-show="directorate">
+                      <div style="padding-bottom:10px;">
+                        {{vocab.label(vocab.directorates,directorate)}} <button type="button" class="btn btn-sm btn-info" ng-click="directorate=''">change</button>
+                      </div>
+                    <select class="form-control selectpicker" id="division" ng-model="dmpModel.dmp.proposal.fundingDivision">
+                        <option label="- Select a Division -" value="">- Select a Division -</option>
+                        <option ng-repeat="item in divisions | filter: {directorate: directorate}" value="{{item.id}}">{{item.label}}</option>
+                    </select>
+                    <div ng-show="dmpModel.dmp.proposal.fundingDivision" style="padding-top:10px;">
+                      <a class="btn btn-info" target="_blank" href="{{dataPolicyUrl(dmpModel.dmp.proposal.fundingDivision)}}">Review {{dmpModel.dmp.proposal.fundingDivision}} Data Policy</a>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <div class="form-group">
+                    <label for="sol">Solicitation Info <small><i>(optional)</i></small></label>
+                    <input type="text" class="form-control" id="sol" placeholder="e.g., GeoPRISMS, LTER">
+                </div>
+            </div>
+            <div class="col-md-12 col-xs-12">
+                <div class="form-group">
+                    <label for="overview">Data Management Overview</label>
+                    <textarea class="form-control" id="overview" placeholder="Please provide a brief summary of data products and analysis, including information about metadata standards, backups, ethics and privacy restrictions." rows="3" ng-model="dmpModel.dmp.proposal.dataManagementOverview"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Products</div>
+        <div class="panel-body">
+          <span ng-show="!dmpModel.dmp.products.length"><i>No products added.</i></span>
+          <div ng-repeat="product in dmpModel.dmp.products | filter: {productId : '!specimenMetadata', current: true}">
+            <div class="panel panel-default">
+              <div class="panel-heading"><span ng-if="product.productId">{{vocab.label(vocab.subdisciplines,product.productId) }} </span>{{vocab.label(vocab.product_types,product.productType)}}</div>
+              <div class="panel-body">
+                <div class="col-md-9">
+                  <div class="col-xs-1" style="margin-left:0px;font-size:18px;color:gray;">
+                    <div><span class="glyphicon glyphicon-circle-arrow-up" data-toggle="tooltip" data-placement="right" title="Move data product up list" ng-click="moveProductUp(product.id)" style="cursor:pointer"></span></div>
+                    <div><span class="glyphicon glyphicon-circle-arrow-down" data-toggle="tooltip" data-placement="right" title="Move data product down list" ng-click="moveProductDown(product.id)" style="cursor:pointer"></span></div>
+                  </div>
+                  <div class="col-xs-11">
+                    <div style="font-style:italic">{{product.responsibleInvestigators}}<span ng-if="!product.responsibleInvestigators" style="color:gray"><i>No Investigators Provided</i></span></div>
+                    {{product.description}}
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <button class="btn btn-default pull-right" ng-click="deleteProduct(product.id)" style="margin:0px 5px">Delete</button>
+                  <button class="btn btn-default pull-right" ng-click="editProduct(product.productType,product.id)" style="margin:0px 5px">Edit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <a class="btn btn-primary btn-sm" role="button" ng-disabled="!dmpModel.dmp.proposal.fundingDivision" ng-click="addProduct()">Add Product</a>
+          <span ng-show="!dmpModel.dmp.proposal.fundingDivision" style="color:white;margin-left:5px;">Select a funding division to add products</span>
+        </div>
+    </div>
+  <div class="col-md-12 col-xs-12 savebuttons">
+    <button class="pull-left btn btn-primary" ng-click="saveReturn()">Save and Return to My DMPs</button>
+    <button class="pull-left btn btn-primary" ng-click="saveContinue()">Save and Continue</button>
+  </div>
+</div>

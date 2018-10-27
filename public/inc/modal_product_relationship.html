@@ -1,0 +1,38 @@
+<div class="modal fade" ng-click="cancel($event)" data="modalBackground">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">{{title}}</h4>
+      </div>
+      <div class="modal-body">
+        
+		  <div class="form-group">
+        <form class="form-inline">
+          This Research Product Is
+          <select ng-model="relationship" class="form-control selectpicker" ng-options="item.id as item.label for item in vocab.relationships"></select>
+        </form>
+      </div>
+      <div class="col-xs-12">
+        <div ng-repeat="product in dmpModel.dmp.products | filter: filterProducts">
+          <div class="panel panel-default">
+            <div class="panel-heading"><span ng-if="product.productId">{{vocab.label(vocab.subdisciplines,product.productId) }} </span>{{vocab.label(vocab.product_types,product.productType)}}</div>
+            <div class="panel-body">
+              <div class="col-md-10">
+                  <div style="font-style:italic">{{product.responsibleInvestigators}}<span ng-if="!product.responsibleInvestigators" style="color:gray"><i>No Investigators Provided</i></span></div>
+                  {{product.description}}
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-default pull-right" ng-click="close(product.id,relationship)" style="margin:0px 5px">Select</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        <div class="clearfix"></div>
+      <div class="modal-footer">
+          <button type="button" ng-click="cancel()" class="btn btn-primary" data-dismiss="modal" >Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
