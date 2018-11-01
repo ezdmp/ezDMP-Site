@@ -2,7 +2,7 @@
   "name": "ezdmp",
   "version": "1.0.0",
   "description": "ezDMP Data Management Plan Site",
-  "private": true,
+  "private": false,
   "scripts": {
     "postinstall": "grunt &",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -27,7 +27,7 @@
     "url": "git+https://github.com/mgds/EZDMP.git"
   },
   "author": "John Morton",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/mgds/EZDMP/issues"
   },

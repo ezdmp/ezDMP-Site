@@ -11,8 +11,8 @@
     "Data Management",
     "Compliance"
   ],
-  "license": "UNLICENSED",
-  "private": true,
+  "license": "MIT",
+  "private": false,
   "ignore": [
     "**/.*",
     "auth",
