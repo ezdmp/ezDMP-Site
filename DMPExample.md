@@ -1,6 +1,73 @@
-# DMP Example
+# DMP Format and Services
 
-Below is an example of a DMP product. A product in this format is what would be delivered by a dmp service and what would be posted to an update service.
+The DMP data format is described below. Services are as follows. All are accompanied with JWT headers for authentication on ezdmp.org, but may be designed without them.
+
+**/api/dmps**
+
+GET
+
+Returns all dmp objects belonging to a user
+
+&nbsp;
+
+**/api/dmp**
+
+POST: `{'id': dmp_unique_id}`
+
+Returns a dmp object corresponding to the unique id in the POST request
+
+&nbsp;
+
+**/api/newDmp**
+
+POST
+
+Returns an empty dmp object with a unique identifier.
+
+**/api/updateDmp**
+
+POST: `{ dmp_id : unique_dmp_id, dmp: {dmp json object as below}}`
+
+Updates a dmp object and returns the updated object
+
+&nbsp;
+
+**/api/deleteDmp**
+
+POST: `{ dmp_id : unique_dmp_id }`
+
+Removes a dmp object from a users dmps.
+
+&nbsp;
+
+
+**/api/pdf/[id]**
+
+GET
+
+Returns the data management plan in pdf format
+
+&nbsp;
+
+**/api/pageCount/[id]**
+
+GET
+
+Returns the number of pages in a data management plan for verification purposes
+
+&nbsp;
+
+**/api/newProduct**
+
+POST: `{ product_type : type , dmp_id: unique_dmp_id }`
+
+Creates a new product and returns the updated dmp object with the product included
+
+&nbsp;
+
+All other object manipulation is done client side
+
+## Example
 
 ```
 {
