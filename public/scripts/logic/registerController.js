@@ -1,8 +1,9 @@
 ezDmpControllers.controller('registerController', [
-  '$scope', '$element', 'title', 'close','toastr','$http',
-function($scope, $element, title, close,toastr,$http) {
+  '$scope', '$element', 'title', 'user', 'close','toastr','$http',
+function($scope, $element, title, user, close,toastr,$http) {
 
   $scope.title = title;
+  $scope.user = user;
   $scope.provided_name = null;
   $scope.policyAccepted = false;
   $scope.optInEmail = true;
@@ -13,7 +14,8 @@ function($scope, $element, title, close,toastr,$http) {
  	    close({
           providedName: $scope.provided_name,
           policyAccepted: $scope.policyAccepted,
-          optInEmail: $scope.optInEmail
+          optInEmail: $scope.optInEmail,
+          emailAddress: $scope.user.email
         }, 500);
   };
 

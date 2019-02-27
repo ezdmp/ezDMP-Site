@@ -8,11 +8,11 @@ ezDmpControllers.filter("trust", ['$sce', function($sce) {
 
 ezDmpControllers.controller('indexView',['$scope','$timeout','Account','$location',function($scope,$timeout,Account,$location) {
     $scope.acct = Account
-    $scope.loginOrProfile = function() {
+    $scope.loginOrProfile = function(service) {
       if ($scope.acct.isAuthenticated()) {
         $location.path("/profile");
       } else {
-        $scope.acct.authenticate('google',"/profile");
+        $scope.acct.authenticate(service,"/profile");
       }
     };
     $timeout(function(){ $(".centralcontent").hide().fadeIn(500); }, 500);

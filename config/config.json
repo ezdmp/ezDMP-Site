@@ -1,7 +1,9 @@
 {
   "base" : "",
   "api" : "/api/",
-  "apiKey": "[YOUR API KEY]",
-  "clientId": "[YOUR ID HERE]",
-  "redirectUri": "/auth/google"
+  "apiKey": "[YOUR GOOGLE API KEY]",
+  "clientIdGoogle": "[YOUR GOOGLE CLIENT ID HERE]",
+  "clientIdOrcid": "[YOUR ORCID CLIENT ID HERE]",
+  "redirectUriGoogle": "/auth/google",
+  "redirectUriOrcid": "/auth/orcid"
 }

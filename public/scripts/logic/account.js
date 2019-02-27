@@ -68,7 +68,8 @@ angular.module('ezDmpApp')
               modal.element.modal('hide');
           },
           inputs: {
-            title: "Register Your Account"
+            title: "Register Your Account",
+            user: service.user
           }
         }).then(function(modal) {
           modal.element.on('hidden.bs.modal', function () {
@@ -96,7 +97,8 @@ angular.module('ezDmpApp')
                   username: result.username,
                   providedName: result.providedName,
                   policyAccepted: result.policyAccepted,
-                  optInEmail: result.optInEmail
+                  optInEmail: result.optInEmail,
+                  emailAddress: result.emailAddress
               }
             }).then(function(response){
               
