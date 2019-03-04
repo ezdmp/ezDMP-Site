@@ -87,14 +87,14 @@ ezDmpApp.config([
       });
       $authProvider.google({
         clientId: ENV.clientIdGoogle,
-        redirectUri: 'http://'+window.location.host+ENV.redirectUriGoogle
+        redirectUri: window.location.protocol+'//'+window.location.host+ENV.redirectUriGoogle
       });
       
       $authProvider.oauth2({
         name: 'orcid',
         url: '/auth/orcid',
         clientId: ENV.clientIdOrcid,
-        redirectUri: 'http://'+window.location.host+ENV.redirectUriOrcid,
+        redirectUri: window.location.protocol+'//'+window.location.host+ENV.redirectUriOrcid,
         authorizationEndpoint: 'https://orcid.org/oauth/authorize',
         scope: ['/authenticate'],
         requiredUrlParams: ['scope']
