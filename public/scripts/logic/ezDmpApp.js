@@ -49,6 +49,10 @@ ezDmpApp.config([
         templateUrl: 'inc/about_inc.html',
         controller: 'indexView'
       }).
+      when('/privacy', {
+        templateUrl: 'inc/privacy_inc.html',
+        controller: 'indexView'
+      }).
       when('/profile', {
         templateUrl: 'inc/profile_inc.html',
         controller: 'profileView'
