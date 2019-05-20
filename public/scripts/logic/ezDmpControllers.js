@@ -18,6 +18,28 @@ ezDmpControllers.controller('indexView',['$scope','$timeout','Account','$locatio
     $timeout(function(){ $(".centralcontent").hide().fadeIn(500); }, 500);
 }]);
 
+
+ezDmpControllers.controller('repoView',['$scope','Account','$http','$q','$location','ezDmpModel','ModalService','vocabControl','$window','ENV',function($scope,Account,$http,$q,$location,ezDmpModel,ModalService,vocabControl,$window,ENV) {
+  $scope.acct = Account;
+  $scope.repos = null;
+  $scope.vocab = vocabControl;
+
+  $scope.getRepos = function () {
+    $http.get(ENV.api+'repositories',{})
+      .then(function(response) {
+        $scope.repos = response.data.data;
+      })
+      .catch(function(response) {
+        console.log("Request failed " + response.status);
+      });
+  };
+
+  $scope.vocab.init(function(){
+    $scope.getRepos();
+    $(".ezDmpmask").fadeOut(2000);
+  });
+}]);
+
 ezDmpControllers.controller('profileView',['$scope','Account','$http','$q','$location','ezDmpModel','ModalService','vocabControl','$window','ENV',function($scope,Account,$http,$q,$location,ezDmpModel,ModalService,vocabControl,$window,ENV) {
   $scope.acct = Account;
   

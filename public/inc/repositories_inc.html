@@ -1,0 +1,23 @@
+<div class="ezDmpmask"><img src="/images/loading-page.gif" alt="loading..." class="loading-img"></div>
+<div class="container">
+  <div class="col-xs-12">
+                <div class="bigtitle" style="text-align:center;">Repositories</div>
+                <div style="text-align:left;">
+
+                    <div ng-repeat="repo in repos | orderBy:'label'">
+                        <h4>
+                            <div ng-if="repo.url">
+                                <a target="_blank" href="{{repo.url}}">{{repo.label}}</a>
+                            </div>
+                            <div ng-if="!repo.url">
+                                {{repo.label}}
+                            </div>
+                            </h4>
+                        <div style="width:100%; text-align:justify">{{repo.description}}</div>    
+                    </div>
+
+                </div>
+                <br><br>
+      
+  </div>
+</div>
