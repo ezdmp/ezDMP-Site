@@ -15,21 +15,21 @@ Once this information has been correctly filled in, run `npm install` and use yo
 ### ezDMP data management plan json format
 ezDMP stores its information in a json object. An example of this DMP object used by this interface is available [here](DMPExample.md).
 
-All ezDMP dictionaries will be documented and openly available for download in the format required by this web application when the production site goes live in early 2019. Development dictionaries are available here:
+All ezDMP dictionaries are available here:
 
-[Subdisciplines](http://dev.ezdmp.org/api/subdisciplines)
+[Subdisciplines](http://www.ezdmp.org/api/subdisciplines)
 
-[Licenses](http://dev.ezdmp.org/api/licenses)
+[Licenses](http://www.ezdmp.org/api/licenses)
 
-[Repositories](http://dev.ezdmp.org/api/repositories)
+[Repositories](http://www.ezdmp.org/api/repositories)
 
-[Directorates](http://dev.ezdmp.org/api/directorates)
+[Directorates](http://www.ezdmp.org/api/directorates)
 
-[Divisions](http://dev.ezdmp.org/api/divisions)
+[Divisions](http://www.ezdmp.org/api/divisions)
 
-[Product Types](http://dev.ezdmp.org/api/product_types)
+[Product Types](http://www.ezdmp.org/api/product_types)
 
-[Product Relationship Types](http://dev.ezdmp.org/api/relation_types)
+[Product Relationship Types](http://www.ezdmp.org/api/relation_types)
 
 &nbsp;
 
