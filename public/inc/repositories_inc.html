@@ -12,8 +12,16 @@
                             <div ng-if="!repo.url">
                                 {{repo.label}}
                             </div>
-                            </h4>
-                        <div style="width:100%; text-align:justify">{{repo.description}}</div>    
+                        </h4>
+        
+                        <b>Directorate(s):</b> <span ng-repeat="dir in repo.directorates">
+                            {{dir.label.replace('Directorate for ', '')}}{{$last ? '' : '; '}}</span>
+                        <br>
+                        <b>Sub-discipline(s):</b> <span ng-repeat="subd in repo.subdisciplines">{{subd.label}}{{$last ? '' : '; '}}</span>
+                        <br>
+                        <b>Product Type(s):</b> <span ng-repeat="pt in repo.product_types">{{pt.label}}{{$last ? '' : '; '}}</span>
+                        <div style="width:100%; text-align:justify"><b>Description: </b>{{repo.description}}</div>   
+                        <br> 
                     </div>
 
                 </div>
