@@ -53,6 +53,10 @@ ezDmpApp.config([
         templateUrl: 'inc/repositories_inc.html',
         controller: 'repoView'
       }).
+      when('/collaborators', {
+        templateUrl: 'inc/collaborators_inc.html',
+        controller: 'indexView'
+      }).
       when('/privacy', {
         templateUrl: 'inc/privacy_inc.html',
         controller: 'indexView'

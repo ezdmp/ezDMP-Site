@@ -1,67 +1,95 @@
 <!doctype html>
 <html lang="en" ng-app="ezDmpApp">
+
 <head>
-	<title>ezDMP</title>
-	<meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/css/ezdmp.min.css" />
-        <script type="text/javascript" src="/scripts/vendor/jquery.min.js"></script>
-        <script type="text/javascript" src="/scripts/vendor/bootstrap-all.min.js"></script>
-        <script type="text/javascript" src="/scripts/vendor/angular-all.min.js"></script>
-        <script src="/scripts/logic/config.js"></script>
-        <script src="/scripts/logic/ezDmpApp.js"></script>
-        <script src="/scripts/logic/ezDmpControllers.js"></script>
-        <script src="/scripts/logic/account.js"></script>
-        <script src="/scripts/logic/navbar.js"></script>
-        <script src="/scripts/logic/registerController.js"></script>
-        <script src="/scripts/logic/ezDmpModel.js"></script>
-        <script src="/scripts/logic/vocabControl.js"></script>
-        <base href="/">
+  <title>ezDMP</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/ezdmp.css" />
+  <script type="text/javascript" src="/scripts/vendor/jquery.min.js"></script>
+  <script type="text/javascript" src="/scripts/vendor/bootstrap-all.min.js"></script>
+  <script type="text/javascript" src="/scripts/vendor/angular-all.min.js"></script>
+  <script src="/scripts/logic/config.js"></script>
+  <script src="/scripts/logic/ezDmpApp.js"></script>
+  <script src="/scripts/logic/ezDmpControllers.js"></script>
+  <script src="/scripts/logic/account.js"></script>
+  <script src="/scripts/logic/navbar.js"></script>
+  <script src="/scripts/logic/registerController.js"></script>
+  <script src="/scripts/logic/ezDmpModel.js"></script>
+  <script src="/scripts/logic/vocabControl.js"></script>
+  <base href="/">
 </head>
+
 <body>
-	<div id="ezDmpContainer">
+  <div id="ezDmpContainer">
     <div id="ezDmpHeader">
-    <nav class="navbar navbar-default navbar-fixed-top">
+      <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="#">ezDMP</a>
-            </div>
-            <div  ng-controller="NavbarCtrl" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav navbar-right">
-                <li><a href="/about">About</a></li>
-                <li><a href="/repositories">Repositories</a></li>
-                <li ng-if="acct.isAuthenticated()"><a href="/profile">My DMPs</a></li>
-              </ul>
-              <ul ng-if="!acct.isAuthenticated()" class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Log In <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="" ng-click="acct.authenticate('google','/profile')"><img style="height:20px;vertical-align:text-top;" src="images/btn_google.png"> via Google</a></li>
-                    <li><a href="" ng-click="acct.authenticate('orcid','/profile')"><img style="height:20px;vertical-align:text-top;" src="images/orcidLogo.png"> via OrcID</a></li>
-                  </ul>
-                </li>
-              </ul>
-              <ul ng-if="acct.isAuthenticated()" class="nav navbar-nav navbar-right">
-                  <li class="dropdown">
-                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img class="profile-picture" ng-src="{{acct.user.picture || 'http://via.placeholder.com/50x50?text=+'}}"> {{acct.user.name}}<span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="" ng-click="acct.logOut()">Log Out</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+              data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index">
+              <img src="images/ezDMP-Logo.png" alt="ezDMP" width="150">
+              <p style="margin-top:-12px; margin-left:10px;">Data Management Plans Made Easy</p>
+            </a>
+          </div>
+          <div ng-controller="NavbarCtrl" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="/about">About</a></li>
+              <li><a href="/repositories">Repositories</a></li>
+              <li><a href="/collaborators">Collaborators</a></li>
+              <li ng-if="acct.isAuthenticated()"><a href="/profile">My DMPs</a></li>
+            </ul>
+            <ul ng-if="!acct.isAuthenticated()" class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                  aria-expanded="false">Log In <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="" ng-click="acct.authenticate('google','/profile')"><img
+                        style="height:20px;" src="images/google_PNG19630.png"> via Google</a></li>
+                  <li><a href="" ng-click="acct.authenticate('orcid','/profile')"><img
+                        style="height:20px;" src="images/orcidLogo.png"> via OrcID</a></li>
+                </ul>
+              </li>
+            </ul>
+            <ul ng-if="acct.isAuthenticated()" class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                  aria-expanded="false"><img class="profile-picture"
+                    ng-src="{{acct.user.picture || 'http://via.placeholder.com/50x50?text=+'}}"> {{acct.user.name}}<span
+                    class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="" ng-click="acct.logOut()">Log Out</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
         </div>
-    </nav>
+      </nav>
+
     </div>
+
     <div id="ezDmpContent" ng-view autoscroll>
-    
     </div>
-</div>
+    <div class="index-footer">
+        <div class="nsf-logo">
+          <img src="images/NSF_4-Color_bitmap_Logo.png" alt="NSF logo" height="80px">
+        </div>
+        <div class="footer-menu">
+          <a href="/index">Home</a> | <a href="/about">About</a> | <a href="collaborators">Collaborators</a> | <a
+            href="/privacy">Privacy Policy</a>
+        </div>
+        <p>
+          ezDMP is funded by an NSF EAGER grant to K. Lehnert and V. Ferrini (Columbia University, 1649703), H.M. Berman
+          (Rutgers University, 1649545), and V.C. Stodden (University of Illinois, Urbana-Champaign, 1649555).
+        </p>
+        <img src="images/ezDMP-Logo.png" alt="ezDMP logo" height="50px">
+      </div> 
+  </div>
 </body>
 </html>

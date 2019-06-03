@@ -1,16 +1,16 @@
 <div class="container">
   <div class="col-md-12 col-xs-12 savebuttons">
-    <button class="pull-left btn btn-primary" ng-click="goBack()">Save and Return to Proposal Info</button>
+      <button class="btn ezdmpbutton btn-orange" ng-click="goBack()"><span>Save + Return to Proposal Info</span></button>
   </div>
     <div class="clearfix"></div>
 
-    <div class="panel panel-primary">
+    <div class="panel-primary">
         <div class="panel-heading">Physical Specimens</div>
         <div class="panel-body">
             <div class="col-md-4 col-xs-12">
                 <div class="form-group">
                     <label for="specimen">Scientific Field</label>
-                    <select class="form-control selectpicker"  ng-options="item.id as item.label for item in subdisciplines" ng-model="subdiscipline" ng-change="subdisciplineSet()">
+                    <select class="form-control selectpicker"  ng-class="{'selectpicker-selected':subdiscipline}" ng-options="item.id as item.label for item in subdisciplines" ng-model="subdiscipline" ng-change="subdisciplineSet()">
                         <option value="">- Select a scientific field -</option>
                     </select>
                 </div>
@@ -45,7 +45,7 @@
             <div class="col-md-6 col-xs-12">
                 <div class="form-group">
                     <label for="repository">Metadata Repository <small><i>(optional)</i></small></label>
-                    <select class="form-control selectpicker"  ng-options="item.id as item.label for item in mrepositories" ng-model="mrepository" ng-change="mrepositorySet()">
+                    <select class="form-control selectpicker" ng-class="{'selectpicker-selected':mrepository}" ng-options="item.id as item.label for item in mrepositories" ng-model="mrepository" ng-change="mrepositorySet()">
                         <option value="">- Select a Metadata Repository -</option>
                     </select>
                     <input type="text" class="form-control" ng-show="mrepository=='other'" ng-model="metadata.repository" placeholder="Specimen Repository Name">
@@ -58,7 +58,7 @@
             </div>
             <div class="row" ng-show="product.archived">
                 <div class="col-xs-12">
-                <div class="panel panel-info">
+                <div>
                     <div class="panel-heading">Specimen Preservation</div>
                     <div class="panel-body">
                         <div class="col-md-6 col-xs-12">
@@ -70,7 +70,7 @@
                         <div class="col-md-6 col-xs-12">
                             <div class="form-group">
                                 <label for="specrepo">Physical Specimen Repository</label>
-                                <select class="form-control selectpicker"  ng-options="item.id as item.label for item in repositories" ng-model="repository" ng-change="repositorySet()">
+                                <select class="form-control selectpicker" ng-class="{'selectpicker-selected':repository}" ng-options="item.id as item.label for item in repositories" ng-model="repository" ng-change="repositorySet()">
                                       <option value="">- Select a Specimen Repository -</option>
                                 </select>
                                 <input type="text" class="form-control" ng-show="repository=='other'" ng-model="product.repository" placeholder="Specimen Repository/Museum Name">
@@ -96,7 +96,7 @@
             </div>
           <div class="row">
                 <div class="col-xs-12">
-                <div class="panel panel-info">
+                <div>
                     <div class="panel-heading">Research Product Relationships</div>
                     <div class="panel-body">
                         <div class="col-md-12 col-xs-12">
@@ -128,8 +128,8 @@
                           </div>
                         </div>
                         <div class="col-md-12 col-xs-12">
-                            <div class="col-md-12 col-xs-12 savebuttons">
-                              <button class="pull-left btn btn-primary" ng-click="addProductRelationship()">Define Relationship to Proposed Research Product</button>
+                            <div class="col-md-12 col-xs-12">
+                                <button class="pull-left btn ezdmpbutton btn-lightblue" ng-click="addProductRelationship()"><span>Define Relationship to Proposed Research Product</span></button>
                             </div>
                         </div>
                     </div>
@@ -139,6 +139,6 @@
         </div>
     </div>
     <div class="col-md-12 col-xs-12 savebuttons">
-    <button class="pull-left btn btn-primary" ng-click="goBack()">Save and Return to Proposal Info</button>
+        <button class="btn ezdmpbutton btn-orange" ng-click="goBack()"><span>Save + Return to Proposal Info</span></button>
   </div>
 </div>

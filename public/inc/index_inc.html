@@ -1,24 +1,33 @@
-<div class="container">
+
+<div class="homepage-container">
     <div class="centralcontent">
         <div class="tcontent">
             <div class="contents">
-              <div><img src="/images/new-logo-trans.png" alt="ezDMP" style="width:100%" /></div>
-                <div class="bigtitle">Data Management Plans<br>Made Easy!</div>
+                <div>
+                    <p>
+                        ez<strong>DMP</strong> helps you build the Data Management Plans for your NSF Grant Applications.
+                    </p>
+                </div>
+                
                 <div class="browsebuttondiv" ng-show="acct.isAuthenticated()">
-                    <a style="cursor:pointer" ng-click="loginOrProfile('google')" ng-show="acct.isAuthenticated()"><div>Start Now</div></a>
+                    <a class="ezdmpbutton" style="cursor:pointer" ng-click="loginOrProfile('google')"
+                        ng-show="acct.isAuthenticated()">
+                        <div><span>Start Now</span></div>
+                    </a>
                 </div>
                 <div class="browsebuttondiv" ng-show="!acct.isAuthenticated()">
-                    <a style="cursor:pointer" ng-click="loginOrProfile('google')"><div><img style="height:20px;vertical-align:text-top;" src="images/btn_google.png"> Log In with Google</div></a>
+                    <a class="ezdmpbutton" style="cursor:pointer" ng-click="loginOrProfile('google')">
+                        <div><img style="height:25px; padding-right:5px" src="images/google_PNG19630.png"><span>Log In
+                                with Google</span></div>
+                    </a>
                 </div>
                 <div class="browsebuttondiv" style="margin-top:10px;" ng-show="!acct.isAuthenticated()">
-                    <a style="cursor:pointer" ng-click="loginOrProfile('orcid')"><div><img style="height:20px;vertical-align:text-top;" src="images/orcidLogo.png"> Log In with OrcId</div></a>
+                    <a class="ezdmpbutton" style="cursor:pointer" ng-click="loginOrProfile('orcid')">
+                        <div><img style="height:25px; padding-right:10px" src="images/orcidLogo.png"><span>Log In with
+                                OrcID</span></div>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="hidden-xs index-footer">
-  A tool to help you build the<br>
-  Data Management Plans <br>
-  for your NSF Grant Applications.
 </div>

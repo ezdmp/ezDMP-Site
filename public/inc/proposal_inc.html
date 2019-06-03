@@ -1,10 +1,10 @@
 <div class="container">
   <div class="col-md-12 col-xs-12 savebuttons">
-    <button class="pull-left btn btn-primary" ng-click="saveReturn()">Save and Return to My DMPs</button>
-    <button class="pull-left btn btn-primary" ng-click="saveContinue()">Save and Continue</button>
+    <button class="btn btn-primary ezdmpbutton" ng-click="saveReturn()" style="width:300px; margin-right:10px;"><span>Save and Return to My DMPs</span></button>
+    <button class="btn btn-orange ezdmpbutton" ng-click="saveContinue()" style="width:300px; margin-left:10px;"><span>Save + Continue</span></button>
   </div>
   <div class="clearfix"></div>
-    <div class="panel panel-primary">
+    <div class="panel-primary">
         <div class="panel-heading">Proposal Information</div>
         <div class="panel-body">
             <div class="col-md-12 col-xs-12">
@@ -35,7 +35,7 @@
                 <div class="form-group">
                     <label for="division">NSF Submission Target</label>
                     <div ng-show="!directorate">
-                    <select class="form-control selectpicker" id="directorate" ng-model="directorate">
+                    <select class="form-control selectpicker" id="directorate" ng-class="{'selectpicker-selected':directorate}" ng-model="directorate">
                         <option label="- Select a Directorate -" value="">- Select a Directorate -</option>
                         <option ng-repeat="item in vocab.directorates" value="{{item.id}}">{{item.label}}</option>
                     </select>
@@ -44,7 +44,7 @@
                       <div style="padding-bottom:10px;">
                         {{vocab.label(vocab.directorates,directorate)}} <button type="button" class="btn btn-sm btn-info" ng-click="directorate=''">change</button>
                       </div>
-                    <select class="form-control selectpicker" id="division" ng-model="dmpModel.dmp.proposal.fundingDivision">
+                    <select class="form-control selectpicker" id="division" ng-class="{'selectpicker-selected':dmpModel.dmp.proposal.fundingDivision}" ng-model="dmpModel.dmp.proposal.fundingDivision">
                         <option label="- Select a Division -" value="">- Select a Division -</option>
                         <option ng-repeat="item in divisions | filter: {directorate: directorate}" value="{{item.id}}">{{item.label}}</option>
                     </select>
@@ -68,7 +68,7 @@
             </div>
         </div>
     </div>
-    <div class="panel panel-primary">
+    <div class="panel-primary2">
         <div class="panel-heading">Products</div>
         <div class="panel-body">
           <span ng-show="!dmpModel.dmp.products.length"><i>No products added.</i></span>
@@ -94,13 +94,13 @@
             </div>
           </div>
         </div>
-        <div class="panel-footer">
-          <a class="btn btn-primary btn-sm" role="button" ng-disabled="!dmpModel.dmp.proposal.fundingDivision" ng-click="addProduct()">Add Product</a>
+        <div>
+          <a class="btn btn-lightblue ezdmpbutton" role="button" ng-disabled="!dmpModel.dmp.proposal.fundingDivision" ng-click="addProduct()"><span>Add a Product</span></a>
           <span ng-show="!dmpModel.dmp.proposal.fundingDivision" style="color:white;margin-left:5px;">Select a funding division to add products</span>
         </div>
     </div>
-  <div class="col-md-12 col-xs-12 savebuttons">
-    <button class="pull-left btn btn-primary" ng-click="saveReturn()">Save and Return to My DMPs</button>
-    <button class="pull-left btn btn-primary" ng-click="saveContinue()">Save and Continue</button>
-  </div>
+    <div class="col-md-12 col-xs-12 savebuttons">
+        <button class="btn btn-primary ezdmpbutton" ng-click="saveReturn()" style="width:300px; margin-right:10px;"><span>Save and Return to My DMPs</span></button>
+        <button class="btn btn-orange ezdmpbutton" ng-click="saveContinue()" style="width:300px; margin-left:10px;"><span>Save + Continue</span></button>
+    </div>
 </div>

@@ -7,31 +7,30 @@
       </div>
 		<form class="form-horizontal" role="form" name="registerForm">
       <div class="modal-body">
-
         <div class="form-group">
-          <label class="col-sm-3 control-label">Full Name (optional)</label>
-          <div class="col-sm-9">
+          <label class="col-sm-4 control-label">Full Name <i style="font-weight: lighter">(optional)</i></label>
+          <div class="col-sm-8">
             <input type="text" class="form-control input-sm" id="provided_name" placeholder="Given name, e.g. John J. Smith" ng-model="provided_name">
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-3 control-label">Email Address (optional)</label>
-          <div class="col-sm-9">
+          <label class="col-sm-4 control-label">Email <i style="font-weight: lighter">(optional)</i></label>
+          <div class="col-sm-8">
             <input type="text" class="form-control input-sm" id="email_address" placeholder="Email Address" ng-model="user.email">
           </div>
         </div>
         <div class="form-group">
-          <div class="col-sm-12">
-              <input type="checkbox" ng-model="policyAccepted"> I accept the terms of the <a target="_blank" href="/privacy">Privacy Policy</a>.
-          </div>
-          <div class="col-sm-12">
-              <input type="checkbox" ng-model="optInEmail"> I would like to receive occasional email updates about ezDMP.
-          </div>
+          <div class="modal-checkbox">
+              <input type="checkbox" id="privacy_checkbox" ng-model="policyAccepted">
+              <label for="privacy_checkbox"><span>I accept the terms of the <a target="_blank" href="/privacy">Privacy Policy</a>.</span></label>
+              <input type="checkbox" id="optin_checkbox" ng-model="optInEmail">
+              <label for="privacy_checkbox"><span>I would like to receive occasional email updates about ezDMP.</span></label>
+           </div>
         </div>
       </div>
       <div class="modal-footer">
           <div ng-show="!policyAccepted">Please accept the terms of the privacy policy to continue</div>
-          <button type="button" ng-click="close()" class="btn btn-primary" data-dismiss="modal" ng-disabled="!policyAccepted" >OK</button>
+          <button type="button" ng-click="close()" class="btn btn-primary ezdmpbutton" data-dismiss="modal" ng-disabled="!policyAccepted"><span>Register</span></button>
       </div>
 		</form>
     </div>

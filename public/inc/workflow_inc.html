@@ -1,15 +1,15 @@
 <div class="container">
   <div class="col-md-12 col-xs-12 savebuttons">
-    <button class="pull-left btn btn-primary" ng-click="goBack()">Save and Return to Proposal Info</button>
+        <button class="btn ezdmpbutton btn-orange" ng-click="goBack()"><span>Save + Return to Proposal Info</span></button>
   </div>
   <div class="clearfix"></div>
-    <div class="panel panel-primary">
+    <div class="panel-primary">
         <div class="panel-heading">Workflow</div>
         <div class="panel-body">
             <div class="col-md-6 col-xs-12">
                 <div class="form-group">
                     <label for="dataType">Scientific Field</label>
-                    <select class="form-control selectpicker"  ng-options="item.id as item.label for item in subdisciplines" ng-model="subdiscipline" ng-change="subdisciplineSet()">
+                    <select class="form-control selectpicker"  ng-class="{'selectpicker-selected':subdiscipline}" ng-options="item.id as item.label for item in subdisciplines" ng-model="subdiscipline" ng-change="subdisciplineSet()">
                         <option value="">- Select a scientific field -</option>
                     </select>
                     <input type="text" class="form-control" ng-show="subdiscipline=='other'" ng-model="product.productId" placeholder="Subdiscipline">
@@ -42,7 +42,7 @@
             <div class="col-md-6 col-xs-12">
                 <div class="form-group">
                     <label for="repository">Distribution Platform</label>
-                    <select class="form-control selectpicker"  ng-options="item.id as item.label for item in repositories" ng-model="repository" ng-change="repositorySet()">
+                    <select class="form-control selectpicker" ng-class="{'selectpicker-selected':repository}"  ng-options="item.id as item.label for item in repositories" ng-model="repository" ng-change="repositorySet()">
                         <option value="">- Select a Distribution Platform -</option>
                     </select>
                     <input type="text" class="form-control" ng-show="repository=='other'" ng-model="product.repository" placeholder="Repository Name">
@@ -58,7 +58,7 @@
             <div class="col-md-6 col-xs-12">
                 <div class="form-group">
                     <label for="license">License for Reuse</label>
-                    <select class="form-control selectpicker" ng-model="license" ng-change="licenseSet()">
+                    <select class="form-control selectpicker" ng-class="{'selectpicker-selected':license}" ng-model="license" ng-change="licenseSet()">
                         <option label="- Select a license -" value="">- Select a license -</option>
                         <option ng-repeat="item in licenses" value="{{item.id}}">{{item.label}}</option>
                         <option label="Other" value="other">Other</option>
@@ -68,7 +68,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                <div class="panel panel-info">
+                <div>
                     <div class="panel-heading">Product Creation Plan</div>
                     <div class="panel-body">
                         <div class="col-md-12 col-xs-12">
@@ -80,7 +80,7 @@
                         <div class="col-md-6 col-xs-12">
                             <div class="form-group">
                               <label for="sharedInstrumentation">Will shared instrumentation be used? <small><i>(optional)</i></small></label>
-                                <select class="form-control selectpicker" ng-model="product.sharedInstrumentation">
+                                <select class="form-control selectpicker" ng-class="{'selectpicker-selected':product.sharedInstrumentation}" ng-model="product.sharedInstrumentation">
                                     <option label="- Select a Shared Instrumentation -" value="">- Select a Shared Instrumentation -</option>
                                     <option ng-repeat="item in vocab.shared_instrumentation" value="{{item.id}}">{{item.label}}</option>
                                 </select>
@@ -92,7 +92,7 @@
             </div>
           <div class="row">
                 <div class="col-xs-12">
-                <div class="panel panel-info">
+                <div>
                     <div class="panel-heading">Research Product Relationships</div>
                     <div class="panel-body">
                         <div class="col-md-12 col-xs-12">
@@ -124,8 +124,8 @@
                           </div>
                         </div>
                         <div class="col-md-12 col-xs-12">
-                            <div class="col-md-12 col-xs-12 savebuttons">
-                              <button class="pull-left btn btn-primary" ng-click="addProductRelationship()">Define Relationship to Proposed Research Product</button>
+                            <div class="col-md-12 col-xs-12">
+                                <button class="pull-left btn ezdmpbutton btn-lightblue" ng-click="addProductRelationship()"><span>Define Relationship to Proposed Research Product</span></button>
                             </div>
                         </div>
                     </div>
@@ -135,6 +135,6 @@
         </div>
     </div>
   <div class="col-md-12 col-xs-12 savebuttons">
-    <button class="pull-left btn btn-primary" ng-click="goBack()">Save and Return to Proposal Info</button>
+        <button class="btn ezdmpbutton btn-orange" ng-click="goBack()"><span>Save + Return to Proposal Info</span></button>
   </div>
 </div>

@@ -1,39 +1,62 @@
 <div class="container">
   <div class="col-xs-12">
-                <div class="bigtitle" style="text-align:center;">Data Management Plans Made Easy!</div>
-                <div style="text-align:left;">
-                  Data Management Plans (DMP) are an important component of enabling 
-                  reproducibility and are now required for most federally funded grants. 
-                  The National Science Foundation(NSF) in particular, has created guidelines 
-                  for producing these plans. Until recently, most data management plans have been 
-                  free text, and it can be difficult for investigators to know exactly what NSF
-                  requires or how it should be organized. Likewise, it can also be difficult for NSF to understand the
-                  disposition of data resulting from research efforts. ezDMP was developed
-                  to ensure that investigators provide everything that NSF wants to see in a clear, 
-                  organized way and to allow NSF to collect meaningful analytics about data compliance.
-                  <br><br>
-                  ezDMP is based on the <a href="https://www.iedadata.org/">Interdisciplinary Earth Data Alliance (IEDA)</a> Data 
-                  Management Tool and free to all investigators. The user interface
-                  includes logic to that allows easy input and connection of 
-                  proposed data products and provides suggestions and information
-                  specific to the NSF directorate and subdiscipline to ensure that
-                  users find the right solutions for long-term data management. Users
-                  can then download an NSF compliant data management plan PDF that
-                  can be submitted directly along with their proposal.
-                  <br><br>
-                  ezDMP is funded by an NSF EAGER grant to K. Lehnert and V. Ferrini 
-                  (Columbia University, <a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1649703">1649703</a>), H.M. Berman (Rutgers University, <a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1649545">1649545</a>),
-                  and V.C. Stodden (University of Illinois, Urbana-Campaign, <a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1649555">1649555</a>). 
-                </div>
-                
-                <div class="browsebuttondiv" ng-show="acct.isAuthenticated()">
-                    <a style="cursor:pointer" ng-click="loginOrProfile('google')" ng-show="acct.isAuthenticated()"><div>Start Now</div></a>
-                </div>
-                <div class="browsebuttondiv" ng-show="!acct.isAuthenticated()">
-                    <a style="cursor:pointer" ng-click="loginOrProfile('google')"><div><img style="height:20px;vertical-align:text-top;" src="images/btn_google.png"> Log In with Google</div></a>
-                </div>
-                <div class="browsebuttondiv" style="margin-top:10px;" ng-show="!acct.isAuthenticated()">
-                    <a style="cursor:pointer" ng-click="loginOrProfile('orcid')"><div><img style="height:20px;vertical-align:text-top;" src="images/orcidLogo.png"> Log In with OrcId</div></a>
-                </div>       
+    <div class="bigtitle">About ezDMP</div>
+    <div style="text-align:left;">
+      <div class="grid-container">
+        <div class="grid-item">
+
+          Data Management Plans (DMP) are an important component of enabling
+          reproducibility and are now required for most federally funded grants.
+          <br><br>
+          The National Science Foundation(NSF) in particular, has created guidelines
+          for producing these plans. Until recently, most data management plans have been
+          free text, and it can be difficult for investigators to know exactly what NSF
+          requires or how it should be organized. Likewise, it can also be difficult for NSF to understand the
+          disposition of data resulting from research efforts. ezDMP was developed
+          to ensure that investigators provide everything that NSF wants to see in a clear,
+          organized way and to allow NSF to collect meaningful analytics about data compliance.
+
+        </div>
+
+        <div class="grid-item">
+          ezDMP is based on the <a href="https://www.iedadata.org/">Interdisciplinary Earth Data Alliance (IEDA)</a>
+          Data
+          Management Tool and free to all investigators. The user interface
+          includes logic to that allows easy input and connection of
+          proposed data products and provides suggestions and information
+          specific to the NSF directorate and subdiscipline to ensure that
+          users find the right solutions for long-term data management. Users
+          can then download an NSF compliant data management plan PDF that
+          can be submitted directly along with their proposal.
+          <br><br>
+          ezDMP is funded by an NSF EAGER grant to K. Lehnert and V. Ferrini
+          (Columbia University, <a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1649703">1649703</a>), H.M.
+          Berman (Rutgers University, <a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1649545">1649545</a>),
+          and V.C. Stodden (University of Illinois, Urbana-Campaign, <a
+            href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1649555">1649555</a>).
+
+        </div>
+      </div>
+    </div>
+
+    <div class="browsebuttondiv" ng-show="acct.isAuthenticated()">
+      <a class="ezdmpbutton" style="cursor:pointer" ng-click="loginOrProfile('google')"
+        ng-show="acct.isAuthenticated()">
+        <div><span>Start Now</span></div>
+      </a>
+    </div>
+    <div class="browsebuttondiv" ng-show="!acct.isAuthenticated()">
+      <a class="ezdmpbutton" style="cursor:pointer" ng-click="loginOrProfile('google')">
+        <div><img style="height:25px; padding-right:5px" src="images/google_PNG19630.png"><span>Log In with
+            Google</span></div>
+      </a>
+    </div>
+    <div class="browsebuttondiv" style="margin-top:10px;" ng-show="!acct.isAuthenticated()">
+      <a class="ezdmpbutton" style="cursor:pointer" ng-click="loginOrProfile('orcid')">
+        <div><img style="height:25px; padding-right:10px" src="images/orcidLogo.png"><span>Log In with OrcID</span>
+        </div>
+      </a>
+    </div>
+
   </div>
 </div>
