@@ -1,32 +1,38 @@
 <div class="ezDmpmask"><img src="/images/loading-page.gif" alt="loading..." class="loading-img"></div>
 <div class="container">
   <div class="row">
-  <div class="col-xs-12" style="left: 50%; margin-left:-100px; margin-top:20px;">
-    <button type="button" class="btn btn-orange ezdmpbutton" ng-click="newDmp()" ><span>Create New DMP</span></button>
-  </div>
-  <div class="clearfix"></div>
+    <div class="col-xs-12 create-btn">
+      <button type="button" class="btn btn-orange ezdmpbutton" ng-click="newDmp()"><span>Create New DMP</span></button>
+    </div>
+    <div class="clearfix"></div>
   </div>
   <div class="panel-primary">
     <div class="panel-heading">My Data Management Plans</div>
     <div class="panel-body">
       <div class="col-xs-12" ng-if="!dmps.length">
-        <div style="font-style:italic;">No Data Management Plans have been created. Click "Create New DMP" above to get started.</div>
+        <div style="font-style:italic;">No Data Management Plans have been created. Click "Create New DMP" above to get
+          started.</div>
       </div>
       <div class="col-xs-12" ng-if="dmps.length">
         <div ng-repeat="dmp in dmps">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <span ng-if="!dmp.dmp.proposal.title"><i>This DMP does not have a title yet</i></span>{{dmp.dmp.proposal.title}}
+              <span ng-if="!dmp.dmp.proposal.title"><i>This DMP does not have a title
+                  yet</i></span>{{dmp.dmp.proposal.title}}
             </div>
             <div class="panel-body">
               <div class="col-lg-8 col-md-7" style="padding-bottom:10px;">
-                <div style="font-style:italic">{{dmp.dmp.proposal.leadPi}}<span ng-if="!dmp.dmp.proposal.leadPi" style="color:gray"><i>Not Provided</i></span></div>
+                <div style="font-style:italic">{{dmp.dmp.proposal.leadPi}}<span ng-if="!dmp.dmp.proposal.leadPi"
+                    style="color:gray"><i>Not Provided</i></span></div>
                 <div>{{dmp.dmp.proposal.dataManagementOverview}}</div>
               </div>
               <div class="col-lg-4 col-md-5">
-                <button class="btn btn-default pull-right" ng-click="downloadPdf(dmp.id)" style="margin:0px 5px">Download PDF</button>
-                <button class="btn btn-default pull-right" ng-click="deleteDmp(dmp.id)" style="margin:0px 5px">Delete</button>
-                <button class="btn btn-default pull-right" ng-click="goToDmp(dmp.id)" style="margin:0px 5px">Edit</button>
+                <button class="btn btn-default pull-right" ng-click="downloadPdf(dmp.id)"
+                  style="margin:0px 5px">Download PDF</button>
+                <button class="btn btn-default pull-right" ng-click="deleteDmp(dmp.id)"
+                  style="margin:0px 5px">Delete</button>
+                <button class="btn btn-default pull-right" ng-click="goToDmp(dmp.id)"
+                  style="margin:0px 5px">Edit</button>
               </div>
             </div>
           </div>

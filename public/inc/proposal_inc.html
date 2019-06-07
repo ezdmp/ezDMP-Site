@@ -1,7 +1,7 @@
 <div class="container">
   <div class="col-md-12 col-xs-12 savebuttons">
-    <button class="btn btn-primary ezdmpbutton" ng-click="saveReturn()" style="width:300px; margin-right:10px;"><span>Save and Return to My DMPs</span></button>
-    <button class="btn btn-orange ezdmpbutton" ng-click="saveContinue()" style="width:300px; margin-left:10px;"><span>Save + Continue</span></button>
+    <button class="btn btn-primary ezdmpbutton save-btn" ng-click="saveReturn()"><span>Save and Return to My DMPs</span></button>
+    <button class="btn btn-orange ezdmpbutton save-btn" ng-click="saveContinue()"><span>Save + Continue</span></button>
   </div>
   <div class="clearfix"></div>
     <div class="panel-primary">
@@ -93,14 +93,15 @@
               </div>
             </div>
           </div>
+          <div>
+              <a class="btn btn-lightblue ezdmpbutton" role="button" ng-disabled="!dmpModel.dmp.proposal.fundingDivision" ng-click="addProduct()"><span>Add a Product</span></a>
+              <span ng-show="!dmpModel.dmp.proposal.fundingDivision" style="color:white;margin-left:5px;">Select a funding division to add products</span>
+            </div>
         </div>
-        <div>
-          <a class="btn btn-lightblue ezdmpbutton" role="button" ng-disabled="!dmpModel.dmp.proposal.fundingDivision" ng-click="addProduct()"><span>Add a Product</span></a>
-          <span ng-show="!dmpModel.dmp.proposal.fundingDivision" style="color:white;margin-left:5px;">Select a funding division to add products</span>
-        </div>
+
     </div>
     <div class="col-md-12 col-xs-12 savebuttons">
-        <button class="btn btn-primary ezdmpbutton" ng-click="saveReturn()" style="width:300px; margin-right:10px;"><span>Save and Return to My DMPs</span></button>
-        <button class="btn btn-orange ezdmpbutton" ng-click="saveContinue()" style="width:300px; margin-left:10px;"><span>Save + Continue</span></button>
+        <button class="btn btn-primary ezdmpbutton save-btn" ng-click="saveReturn()"><span>Save and Return to My DMPs</span></button>
+        <button class="btn btn-orange ezdmpbutton save-btn" ng-click="saveContinue()""><span>Save + Continue</span></button>
     </div>
 </div>

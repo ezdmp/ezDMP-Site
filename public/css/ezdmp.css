@@ -2462,7 +2462,6 @@ a.btn.disabled, fieldset[disabled] a.btn {
     border-color: rgb(254,157,2);
     border-radius: 2px;
     margin: 20px;
-    width: 400px;
 }
 .btn-block+.btn-block {
     margin-top: 5px;
@@ -3145,7 +3144,7 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
 .navbar-brand {
     float: left;
     padding: 5px 10px;
-    font-size: 12px;
+    font-size: 0.7em;
     line-height: 20px;
     height: 75px;
 }
@@ -3164,7 +3163,7 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
     float: right;
     margin-right: 10px;
     padding: 9px 10px;
-    margin-top: 8px;
+    margin-top: 20px;
     margin-bottom: 8px;
     background-color: transparent;
     background-image: none;
@@ -4480,8 +4479,7 @@ button.close {
 }
 .modal-dialog {
     position: relative;
-    width: auto;
-    margin: 10px;
+    margin: 20px;
 }
 .modal-content {
     position: relative;
@@ -4492,8 +4490,7 @@ button.close {
     box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
     background-clip: padding-box;
     outline: 0;
-    width: 60%;
-    margin: auto auto;
+    margin: 0;
     padding: 10px 40px 10px 10px;
 }
 .modal-backdrop {
@@ -4629,7 +4626,6 @@ button.close {
 
 @media (min-width:768px) {
     .modal-dialog {
-    width: 600px;
     margin: 30px auto;
 }
 .modal-content {
@@ -4641,7 +4637,11 @@ button.close {
 }
 }@media (min-width:992px) {
     .modal-lg {
-    width: 900px;
+    width: 600px;
+}
+}@media (min-width:992px) {
+    .modal-product-lg {
+    width: 467px;
 }
 }.tooltip {
     position: absolute;
@@ -5223,7 +5223,7 @@ td.visible-lg, th.visible-lg {
 }
 }@media (max-width:767px) {
     .hidden-xs {
-    display: none!important;
+    display: none!important;    
 }
 }@media (min-width:768px) and (max-width:991px) {
     .hidden-sm {
@@ -5232,6 +5232,13 @@ td.visible-lg, th.visible-lg {
 }@media (min-width:992px) and (max-width:1199px) {
     .hidden-md {
     display: none!important;
+}
+}@media (max-width:1199px) {
+    .xs_background {
+        background-color: rgba(255,255,255,0.8);
+        padding: 10px;
+        border-width: 2px;
+        border-radius: 10px;
 }
 }@media (min-width:1200px) {
     .hidden-lg {
@@ -5326,7 +5333,7 @@ body, html {
     width: 100%}
 .savebuttons {
     padding-bottom: 10px;
-    margin: 30px 0 10px 0;
+    margin-top: 20px;
     text-align: center;
 }
 .profile-picture {
@@ -5963,13 +5970,19 @@ div[toast].ng-leave.ng-leave-active {
 }
 }
 
+
 .grid-container {
     display: grid;
     grid-column-gap: 50px;
-    grid-template-columns: auto auto;
+    grid-template-columns: repeat(auto-fit, minmax(300px , 1fr));
     padding: 0px;
   }
 
+@media (min-width:768px) {
+    .grid-container {
+        grid-template-columns: repeat(auto-fit, minmax(341px , 1fr));
+    }
+}
   .subgrid-container {
     display: inline-grid;
     grid-column-gap: 20px;
@@ -6064,7 +6077,6 @@ div[toast].ng-leave.ng-leave-active {
     background-color: rgb(254,157,2);
     margin-top: 15px; 
     margin-bottom: 15px;
-    padding: 6px 50px 6px 50px;
 }
 .btn-orange.focus, .btn-orange:focus {
     background-color: rgb(232, 209, 158);
@@ -6107,10 +6119,34 @@ div[toast].ng-leave.ng-leave-active {
     background-color: rgb(158,217,232);
     margin-top: 15px; 
     margin-bottom: 15px;
-    padding: 6px 50px 6px 50px;
 }
 
 .btn-lightblue:hover {
     background-color: rgb(83, 192, 211);
     color: #fff!important;
+}
+
+.create-btn {
+    margin-top:10%;
+    text-align: center;
+}
+
+@media (min-width:1200px) {
+    .create-btn {
+    margin-top:20px;}
+    .btn-orange {
+        padding: 6px 50px 6px 50px;
+    }
+}
+@media (min-width:768px) {
+    .btn-orange {
+        padding: 6px 50px 6px 50px;
+    }
+    .btn-lightblue {
+        padding: 6px 50px 6px 50px;
+    } 
+}
+.save-btn {
+    margin: 5px 10px 5px 10px;
+    width:300px;
 }

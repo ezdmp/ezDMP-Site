@@ -38,25 +38,25 @@
         </div>
       </div>
     </div>
-
-    <div class="browsebuttondiv" ng-show="acct.isAuthenticated()">
-      <a class="ezdmpbutton" style="cursor:pointer" ng-click="loginOrProfile('google')"
-        ng-show="acct.isAuthenticated()">
-        <div><span>Start Now</span></div>
-      </a>
+    <div style="margin-bottom:20px;">
+      <div class="browsebuttondiv" ng-show="acct.isAuthenticated()">
+        <a class="ezdmpbutton" style="cursor:pointer" ng-click="loginOrProfile('google')"
+          ng-show="acct.isAuthenticated()">
+          <div><span>Start Now</span></div>
+        </a>
+      </div>
+      <div class="browsebuttondiv" ng-show="!acct.isAuthenticated()">
+        <a class="ezdmpbutton" style="cursor:pointer" ng-click="loginOrProfile('google')">
+          <div><img style="height:25px; padding-right:5px" src="images/google_PNG19630.png"><span>Log In with
+              Google</span></div>
+        </a>
+      </div>
+      <div class="browsebuttondiv" style="margin-top:10px;" ng-show="!acct.isAuthenticated()">
+        <a class="ezdmpbutton" style="cursor:pointer" ng-click="loginOrProfile('orcid')">
+          <div><img style="height:25px; padding-right:10px" src="images/orcidLogo.png"><span>Log In with OrcID</span>
+          </div>
+        </a>
+      </div>
     </div>
-    <div class="browsebuttondiv" ng-show="!acct.isAuthenticated()">
-      <a class="ezdmpbutton" style="cursor:pointer" ng-click="loginOrProfile('google')">
-        <div><img style="height:25px; padding-right:5px" src="images/google_PNG19630.png"><span>Log In with
-            Google</span></div>
-      </a>
-    </div>
-    <div class="browsebuttondiv" style="margin-top:10px;" ng-show="!acct.isAuthenticated()">
-      <a class="ezdmpbutton" style="cursor:pointer" ng-click="loginOrProfile('orcid')">
-        <div><img style="height:25px; padding-right:10px" src="images/orcidLogo.png"><span>Log In with OrcID</span>
-        </div>
-      </a>
-    </div>
-
   </div>
 </div>
