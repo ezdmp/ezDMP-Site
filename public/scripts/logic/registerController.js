@@ -1,10 +1,9 @@
 ezDmpControllers.controller('registerController', [
   '$scope', '$element', 'title', 'user', 'close','toastr','$http',
 function($scope, $element, title, user, close,toastr,$http) {
-
   $scope.title = title;
   $scope.user = user;
-  $scope.provided_name = null;
+  $scope.provided_name = user.name;
   $scope.policyAccepted = false;
   $scope.optInEmail = true;
   
