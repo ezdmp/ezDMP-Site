@@ -772,10 +772,10 @@ button, input, select, textarea {
     font-size: inherit;
     line-height: inherit;
 }
-a {
+/* a {
     color: #1d3557;
     text-decoration: none;
-}
+} */
 a:focus, a:hover {
     color: #0a121e;
     text-decoration: underline;
