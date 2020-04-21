@@ -24,7 +24,16 @@
               <div class="col-lg-8 col-md-7" style="padding-bottom:10px;">
                 <div style="font-style:italic">{{dmp.dmp.proposal.leadPi}}<span ng-if="!dmp.dmp.proposal.leadPi"
                     style="color:gray"><i>Not Provided</i></span></div>
-                <div>{{dmp.dmp.proposal.dataManagementOverview}}</div>
+                <div ng-bind-html="dmp.dmp.proposal.dataManagementOverview"></div>
+                <br>
+                <div>
+                  <small ng-if="dmp.created"><i>Created: {{dmp.created | date :'MMM dd, yyyy HH:mm:ss'}}</i></small><br>
+                  <small ng-if="dmp.modified"><i>Last Modified: {{dmp.modified | date :'MMM dd, yyyy HH:mm:ss'}}</i></small>
+                </div>
+                <div ng-if="dmp.dmp.iedaDMPEntry">
+                  <img src="images/ieda_logo_200x88.png" alt="ieda" width="60">
+                  <i>Initially generated with the IEDA DMP Tool</i>
+                </div>
               </div>
               <div class="col-lg-4 col-md-5">
                 <button class="btn btn-default pull-right" ng-click="downloadPdf(dmp.id)"

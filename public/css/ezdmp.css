@@ -1833,6 +1833,23 @@ output {
 textarea.form-control {
     height: auto;
 }
+div.form-control {
+    height: auto; 
+    min-height:5em;
+    resize: both; 
+    overflow: auto;
+}
+
+[placeholder]:empty::before {
+    content: attr(placeholder);
+    color: #999;
+    opacity: 1;
+}
+
+[placeholder]:empty:focus::before {
+    content: "";
+}
+
 input[type=search] {
     -webkit-appearance: none;
 }

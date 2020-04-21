@@ -10,6 +10,7 @@ ezDmpControllers.factory('ezDmpModel',['$http','$rootScope','vocabControl','ENV'
             service.dmp = response.data.dmp;
             service.dmp_id = id;
             service.productPointer = service.metadataPointer = null;
+            service.modified = response.data.modified;
             if (typeof callback === 'function')
               callback(response);
           })

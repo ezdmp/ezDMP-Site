@@ -100,6 +100,7 @@ ezDmpControllers.controller('profileView',['$scope','Account','$http','$q','$loc
             });
           });
         } else {
+          console.log( ENV.api+'pdf/'+id)
           $window.location.href = ENV.api+'pdf/'+id;
         }
       })
@@ -177,6 +178,7 @@ ezDmpControllers.controller('dmpView',['$scope','Account','$http','$q','$locatio
   
   $scope.saveContinue = function(){
     $scope.dmpModel.saveDmp(function(){
+      $scope.dmpModel.modified = (new Date());
       toastr.info('Your Data Management Plan has been saved','DMP Saved')
     });
   };
@@ -266,7 +268,27 @@ ezDmpControllers.controller('dmpView',['$scope','Account','$http','$q','$locatio
     });
   };
   //Break DMP out into its own factory. getDmp populates factory and then factory manipulates from there.
-}]);
+}])
+  .directive("contenteditable", function() {
+  return {
+    restrict: "A",
+    require: "ngModel",
+    link: function(scope, element, attrs, ngModel) {
+
+      function read() {
+        ngModel.$setViewValue(element.html());
+      }
+
+      ngModel.$render = function() {
+        element.html(ngModel.$viewValue || "");
+      };
+
+      element.bind("blur keyup change", function() {
+        scope.$apply(read);
+      });
+    }
+  };
+});
 
 ezDmpControllers.controller('productController', [
   '$scope', '$element', 'title', 'close','toastr','$http','ezDmpModel','vocabControl',
@@ -495,6 +517,7 @@ ezDmpControllers.controller('productView',['$scope','$http','$q','ezDmpModel','$
       $scope.init();
     }
   });
+
   
   
   
@@ -532,6 +555,9 @@ ezDmpControllers.controller('productView',['$scope','$http','$q','ezDmpModel','$
     });
   };
 }]);
+
+
+
 
 ezDmpControllers.controller('productRelationshipController', [
   '$scope', '$element', 'title', 'close','toastr','$http','ezDmpModel','vocabControl',

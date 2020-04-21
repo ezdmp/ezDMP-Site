@@ -24,7 +24,7 @@
             <div class="col-md-12 col-xs-12">
                 <div class="form-group">
                     <label for="materialDescription">Data Product Description</label>
-                    <textarea class="form-control" id="materialDescription" placeholder="Briefly describe this data product" rows="3" ng-model="product.description"></textarea>
+                    <div contenteditable class="form-control" id="materialDescription" placeholder="Briefly describe this data product" ng-model="product.description"></div>
                 </div>
             </div>
             <div class="col-md-12 col-xs-12">
@@ -68,8 +68,8 @@
             </div>
             <div class="col-md-12 col-xs-12">
                 <div class="form-group">
-                    <label for="formats">Duration of Data Availability</label>
-                    <input type="text" class="form-control" id="formats" placeholder="How long will this data be available?" ng-model="product.durationOfAvailability">
+                    <label for="availability">Duration of Data Availability</label>
+                    <input type="text" class="form-control" id="availability" placeholder="How long will this data be available?" ng-model="product.durationOfAvailability">
                 </div>
             </div>
             <div class="row">

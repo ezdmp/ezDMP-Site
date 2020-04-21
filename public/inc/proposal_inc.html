@@ -5,6 +5,7 @@
   </div>
   <div class="clearfix"></div>
     <div class="panel-primary">
+        <small ng-if="dmpModel.modified"><i>Last Saved: {{dmpModel.modified | date :'MMM dd, yyyy HH:mm:ss'}}</i></small>
         <div class="panel-heading">Proposal Information</div>
         <div class="panel-body">
             <div class="col-md-12 col-xs-12">
@@ -63,7 +64,7 @@
             <div class="col-md-12 col-xs-12">
                 <div class="form-group">
                     <label for="overview">Data Management Overview</label>
-                    <textarea class="form-control" id="overview" placeholder="Please provide a brief summary of data products and analysis, including information about metadata standards, backups, ethics and privacy restrictions." rows="3" ng-model="dmpModel.dmp.proposal.dataManagementOverview"></textarea>
+                    <div contenteditable class="form-control" id="overview" placeholder="Please provide a brief summary of data products and analysis, including information about metadata standards, backups, ethics and privacy restrictions." ng-model="dmpModel.dmp.proposal.dataManagementOverview"></div>
                 </div>
             </div>
         </div>
@@ -83,7 +84,7 @@
                   </div>
                   <div class="col-xs-11">
                     <div style="font-style:italic">{{product.responsibleInvestigators}}<span ng-if="!product.responsibleInvestigators" style="color:gray"><i>No Investigators Provided</i></span></div>
-                    {{product.description}}
+                    <p ng-bind-html="product.description"></p>
                   </div>
                 </div>
                 <div class="col-md-3">
@@ -105,4 +106,5 @@
         <button class="btn btn-orange ezdmpbutton save-btn" ng-click="saveContinue()"><span>Save Changes</span></button>
         <button class="btn btn-primary ezdmpbutton save-btn" ng-click="saveReturn()"><span>Save and Return to My DMPs</span></button>
     </div>
+    <small ng-if="dmpModel.modified"><i>Last Saved: {{dmpModel.modified | date :'MMM dd, yyyy HH:mm:ss'}}</i></small>
 </div>
