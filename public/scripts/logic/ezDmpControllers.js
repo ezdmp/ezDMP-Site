@@ -100,7 +100,6 @@ ezDmpControllers.controller('profileView',['$scope','Account','$http','$q','$loc
             });
           });
         } else {
-          console.log( ENV.api+'pdf/'+id)
           $window.location.href = ENV.api+'pdf/'+id;
         }
       })
@@ -520,7 +519,6 @@ ezDmpControllers.controller('productView',['$scope','$http','$q','ezDmpModel','$
 
   
   
-  
   $scope.goBack = function(){
     $scope.dmpModel.saveDmp(function(){
       toastr.info('Your Data Management Plan has been saved','DMP Saved')
@@ -555,9 +553,6 @@ ezDmpControllers.controller('productView',['$scope','$http','$q','ezDmpModel','$
     });
   };
 }]);
-
-
-
 
 ezDmpControllers.controller('productRelationshipController', [
   '$scope', '$element', 'title', 'close','toastr','$http','ezDmpModel','vocabControl',
