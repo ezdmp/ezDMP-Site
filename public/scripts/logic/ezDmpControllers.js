@@ -47,11 +47,17 @@ ezDmpControllers.controller('profileView',['$scope','Account','$http','$q','$loc
   $scope.dmpModel = ezDmpModel;
   
   $scope.download_url = null;
-  
+
+
   $scope.getDmps = function () {
     $http.get(ENV.api+'dmps',{})
       .then(function(response) {
         $scope.dmps = response.data;
+        for (var dmp of $scope.dmps) {
+          if (dmp.dmp && dmp.dmp.proposal && dmp.dmp.proposal.dataManagementOverview) {
+            dmp.dmp.proposal['teaser'] = dmp.dmp.proposal.dataManagementOverview.substring(0,300) + '...';
+          }
+        }
       })
       .catch(function(response) {
         //console.log("Request failed " + response.status);
@@ -147,6 +153,11 @@ ezDmpControllers.controller('profileView',['$scope','Account','$http','$q','$loc
     });
   };
   
+  $scope.orderByMe = function (x) {
+    $scope.reverse = ($scope.orderBy === x) ? !$scope.reverse : false;
+    $scope.orderBy = x;
+  };
+
 }]);
 
 ezDmpControllers.controller('dmpView',['$scope','Account','$http','$q','$location','ezDmpModel','ModalService','toastr','vocabControl','$routeParams',function($scope,Account,$http,$q,$location,ezDmpModel,ModalService,toastr,vocabControl,$routeParams) {
@@ -383,6 +394,8 @@ ezDmpControllers.controller('productView',['$scope','$http','$q','ezDmpModel','$
   $scope.updateLicenses = function(){
     $scope.licenses = $scope.vocab.licenses;
     $scope.checkLicense();
+    $scope.licenseDescription = $scope.getLicenseDescription($scope.licenses,$scope.product.license);
+    $scope.licenseUrl = $scope.getLicenseUrl($scope.licenses,$scope.product.license);
     $timeout(function(){$scope.$apply();},0,false);
   };
   
@@ -391,7 +404,14 @@ ezDmpControllers.controller('productView',['$scope','$http','$q','ezDmpModel','$
     return vocabControl.getFieldById(repos,repo,'description');
   };
   
+  $scope.getLicenseDescription = function(licenses,license) {
+    return vocabControl.getFieldById(licenses,license,'description');
+  };
   
+  $scope.getLicenseUrl = function(licenses,license) {
+    return vocabControl.getFieldById(licenses,license,'url');
+  };
+
   $scope.repositorySet = function(){
     if ($scope.repository!=='other'){
       $scope.product.repository=$scope.repository;
@@ -405,8 +425,12 @@ ezDmpControllers.controller('productView',['$scope','$http','$q','ezDmpModel','$
   $scope.licenseSet = function(){
     if ($scope.license!=='other'){
       $scope.product.license=$scope.license;
+      $scope.licenseDescription = $scope.getLicenseDescription($scope.licenses,$scope.product.license);
+      $scope.licenseUrl = $scope.getLicenseUrl($scope.licenses,$scope.product.license);
     } else {
       $scope.product.license='';
+      $scope.licenseDescription ='';
+      $scope.licenseUrl = "";
     }
   };
   

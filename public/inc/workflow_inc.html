@@ -60,11 +60,12 @@
                     <label for="license">License for Reuse</label>
                     <select class="form-control selectpicker" ng-class="{'selectpicker-selected':license}" ng-model="license" ng-change="licenseSet()">
                         <option label="- Select a license -" value="">- Select a license -</option>
-                        <option ng-repeat="item in licenses" value="{{item.id}}">{{item.label}}</option>
+                        <option ng-repeat="item in licenses |orderBy: 'label'" value="{{item.id}}">{{item.label}}</option>
                         <option label="Other" value="other">Other</option>
                     </select>
                     <input type="text" class="form-control" ng-show="license==='other'" ng-model="product.license" placeholder="License Name/Description">
                 </div>
+                <div class="well well-sm" ng-show="licenseDescription || licenseUrl">{{licenseDescription}}<br ng-show="licenseDescription && licenseUrl"><a ng-href="{{licenseUrl}}" ng-show="licenseUrl" target="_blank">{{licenseUrl}}</a></div>
             </div>
             <div class="row">
                 <div class="col-xs-12">

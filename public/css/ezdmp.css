@@ -6167,3 +6167,16 @@ div[toast].ng-leave.ng-leave-active {
     margin: 5px 10px 5px 10px;
     width:300px;
 }
+
+.sortorder:after {
+  content: '\25b2';   // BLACK UP-POINTING TRIANGLE
+}
+.sortorder.reverse:after {
+  content: '\25bc';   // BLACK DOWN-POINTING TRIANGLE
+}
+
+.sortby-div {
+    margin-bottom:10px;
+    font-size: 13px;
+    font-family: "michromaregular", Helvetica;
+}
