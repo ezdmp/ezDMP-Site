@@ -19,7 +19,7 @@
     "grunt-contrib-uglify": "^3.0.1",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-ng-constant": "^2.0.1",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.13",
     "merge": "^1.2.1",
     "webpack": "^3.10.0"
   },
