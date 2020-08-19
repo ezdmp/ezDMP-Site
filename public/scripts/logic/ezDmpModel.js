@@ -31,6 +31,16 @@ ezDmpControllers.factory('ezDmpModel',['$http','$rootScope','vocabControl','ENV'
             //console.log("Request failed " + response.status);
           });
       },
+      copyDmp : function(dmp_id,callback){
+        $http.post(ENV.api+'copyDmp',{dmp_id:dmp_id})
+          .then(function(response) {
+            if (typeof callback === 'function')
+              callback(response);
+          })
+          .catch(function(response) {
+            //console.log("Request failed " + response.status);
+          });
+      },
       saveDmp : function(callback){
         $http.post(ENV.api+'updateDmp',{dmp_id:service.dmp_id,dmp:angular.toJson(service.dmp)})
           .then(function(response) {
