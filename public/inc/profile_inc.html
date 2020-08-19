@@ -22,9 +22,10 @@
           <span class="sortorder" ng-show="orderBy === 'created'" ng-class="{reverse: reverse}"></span> 
           <button ng-click="orderByMe('modified')">Date Modified</button>
           <span class="sortorder" ng-show="orderBy === 'modified'" ng-class="{reverse: reverse}"></span>
+          <button class="btn btn-sm btn-info pull-right" ng-click="toggleDisplay()">{{displayText}}</button>
         </div>
         <div ng-repeat="dmp in dmps | orderBy:orderBy:reverse">
-          <div class="panel panel-default">
+          <div class="panel panel-default" ng-show="displayAll || dmp.status=='current'">
             <div class="panel-heading">
               <span ng-if="!dmp.dmp.proposal.title"><i>This DMP does not have a title
                   yet</i></span>{{dmp.dmp.proposal.title}}
@@ -53,6 +54,11 @@
                   style="margin:0px 5px" title="create new DMP from this one">Copy</button>
                 <button class="btn btn-default pull-right" ng-click="goToDmp(dmp.id)"
                   style="margin:0px 5px">Edit</button>
+                <br><br>
+                <button class="btn btn-sm btn-info pull-right" ng-click="hideShowDmp(dmp.id, 'hide')" ng-show="dmp.status=='current'"
+                style="margin:20px 5px 0 5px">Hide</button>
+                <button class="btn btn-sm btn-info pull-right" ng-click="hideShowDmp(dmp.id, 'show')" ng-show="dmp.status=='hidden'"
+                style="margin:20px 5px 0 5px">Show</button>
               </div>
             </div>
           </div>
