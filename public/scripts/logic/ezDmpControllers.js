@@ -47,6 +47,8 @@ ezDmpControllers.controller('profileView',['$scope','Account','$http','$q','$loc
   $scope.dmpModel = ezDmpModel;
   
   $scope.download_url = null;
+  $scope.displayAll = false;
+  $scope.displayText = "Display hidden DMPs";
 
 
   $scope.getDmps = function () {
@@ -159,10 +161,51 @@ ezDmpControllers.controller('profileView',['$scope','Account','$http','$q','$loc
     });
   };
   
+
+  $scope.hideShowDmp = function(dmp_id, hideShow){
+    ModalService.showModal({
+      templateUrl: "/inc/modalAreYouSure.html",
+      controller: "areYouSureController",
+      preClose: (modal) => {
+          modal.element.modal('hide');
+      },
+      inputs: {
+        title: "Hide/Show Data Management Plan",
+        body: "Are you sure you want to " + hideShow + " this data management plan?"
+      }
+    }).then(function(modal) {
+      modal.element.on('hidden.bs.modal', function () {
+          if (!modal.closed) {
+            modal.close.then(function(){});  
+          }
+      });
+      modal.element.modal();
+      modal.close.then(function(result) {
+        if (result) {
+          var status = hideShow == 'hide' ? 'hidden' : 'current'
+          $http.post(ENV.api+'updateDmpStatus',{dmp_id:dmp_id, status:status})
+            .then(function(response) {
+              $scope.getDmps();
+            })
+            .catch(function(response) {
+              //console.log("Request failed " + response.status);
+            });
+        } else {
+
+        }
+      });
+    });
+  };
+
   $scope.orderByMe = function (x) {
     $scope.reverse = ($scope.orderBy === x) ? !$scope.reverse : false;
     $scope.orderBy = x;
   };
+
+  $scope.toggleDisplay = function() {
+    $scope.displayAll = !$scope.displayAll;
+    $scope.displayText = $scope.displayAll ? "Hide hidden DMPs" : "Display hidden DMPs"
+  }
 
 }]);
 
