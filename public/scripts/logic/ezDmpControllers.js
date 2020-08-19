@@ -72,6 +72,12 @@ ezDmpControllers.controller('profileView',['$scope','Account','$http','$q','$loc
     });
   };
   
+  $scope.copyDmp = function(id){
+    $scope.dmpModel.copyDmp(id, function(response){
+      $scope.goToDmp(response.data.id);
+    });
+  };
+
   $scope.goToDmp = function(id){
     $location.path( "/dmp/"+id );
   };
