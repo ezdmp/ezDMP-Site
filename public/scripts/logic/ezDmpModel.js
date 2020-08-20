@@ -2,6 +2,7 @@ ezDmpControllers.factory('ezDmpModel',['$http','$rootScope','vocabControl','ENV'
     var service = {
       dmp : null,
       dmp_id : null,
+      award_id: null,
       productPointer: null,
       metadataPointer: null,
       getDmp : function(id,callback){
@@ -9,6 +10,7 @@ ezDmpControllers.factory('ezDmpModel',['$http','$rootScope','vocabControl','ENV'
           .then(function(response) {
             service.dmp = response.data.dmp;
             service.dmp_id = id;
+            service.award_id = response.data.award;
             service.productPointer = service.metadataPointer = null;
             service.modified = response.data.modified;
             if (typeof callback === 'function')
@@ -42,7 +44,7 @@ ezDmpControllers.factory('ezDmpModel',['$http','$rootScope','vocabControl','ENV'
           });
       },
       saveDmp : function(callback){
-        $http.post(ENV.api+'updateDmp',{dmp_id:service.dmp_id,dmp:angular.toJson(service.dmp)})
+        $http.post(ENV.api+'updateDmp',{dmp_id:service.dmp_id,dmp:angular.toJson(service.dmp),award:service.award_id})
           .then(function(response) {
             if (typeof callback === 'function')
               callback(response);

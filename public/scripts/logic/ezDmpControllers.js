@@ -197,6 +197,8 @@ ezDmpControllers.controller('profileView',['$scope','Account','$http','$q','$loc
     });
   };
 
+  $scope.orderBy = 'modified';
+  $scope.reverse = true;
   $scope.orderByMe = function (x) {
     $scope.reverse = ($scope.orderBy === x) ? !$scope.reverse : false;
     $scope.orderBy = x;
@@ -209,7 +211,7 @@ ezDmpControllers.controller('profileView',['$scope','Account','$http','$q','$loc
 
 }]);
 
-ezDmpControllers.controller('dmpView',['$scope','Account','$http','$q','$location','ezDmpModel','ModalService','toastr','vocabControl','$routeParams',function($scope,Account,$http,$q,$location,ezDmpModel,ModalService,toastr,vocabControl,$routeParams) {
+ezDmpControllers.controller('dmpView',['$scope','Account','$http','$q','$location','ezDmpModel','ModalService','toastr','vocabControl','$routeParams','$sce',function($scope,Account,$http,$q,$location,ezDmpModel,ModalService,toastr,vocabControl,$routeParams,$sce) {
   $scope.acct = Account;
   $scope.dmpModel = ezDmpModel;
   $scope.vocab = vocabControl;
@@ -225,9 +227,10 @@ ezDmpControllers.controller('dmpView',['$scope','Account','$http','$q','$locatio
         $scope.dmpModel.dmp.proposal.leadPi = $scope.acct.user.providedName;
       }
       $('[data-toggle="tooltip"]').tooltip(); 
+      $scope.getAwards();
     });
   });
-  
+
   $scope.saveReturn = function(){
     $scope.dmpModel.saveDmp(function(){
       toastr.info('Your Data Management Plan has been saved','DMP Saved')
@@ -242,6 +245,45 @@ ezDmpControllers.controller('dmpView',['$scope','Account','$http','$q','$locatio
     });
   };
   
+  $scope.getAwards = function() {
+    var api_url = "https://api.nsf.gov/services/v1/awards.json?agency=NSF&pdPIName=" + $scope.dmpModel.dmp.proposal.leadPi;
+    var trustedUrl = $sce.trustAsResourceUrl(api_url);
+    var other = {label:'Other'};
+    $scope.awards=[other];
+
+    //get awards from NSF API
+    $http.jsonp(trustedUrl, {jsonpCallbackParam: 'callback'})
+        .then(function(response){
+            $scope.awards = response.data.response.award;
+            //if reloading, try and match existing award from database
+            var found = false;
+            for (var award of $scope.awards) {
+              award.label = award.id + ": " + award.title;
+              if (award.id == $scope.dmpModel.award_id) {
+                $scope.award = award;
+                found = true;
+              }
+            }
+            $scope.awards.push(other);
+            //if reloading with a manually entered award
+            if (!found && $scope.dmpModel.award_id) {
+              $scope.award = other;
+            }
+        })
+        .catch(function(response) {
+          console.log("Request failed " + response);
+        });
+  }
+
+  $scope.awardSet = function(){
+    // the award_id will be saved in the database
+    if ($scope.award && $scope.award.label !== 'Other'){
+      $scope.dmpModel.award_id = $scope.award.id;
+    } else {
+      $scope.dmpModel.award_id = '';
+    }
+  };
+
   $scope.dataPolicyUrl = function(id) {
     if (!$scope.divisions) return false;
     for (var i=0;i<$scope.divisions.length;i++) {

@@ -17,7 +17,7 @@
             <div class="col-md-6 col-xs-12">
                 <div class="form-group">
                     <label for="pi">Lead PI</label>
-                    <input type="text" class="form-control" id="pi" placeholder="First and Last Name" ng-model="dmpModel.dmp.proposal.leadPi">
+                    <input type="text" class="form-control" id="pi" placeholder="First and Last Name" ng-model="dmpModel.dmp.proposal.leadPi" ng-blur="getAwards()">
                 </div>
             </div>
             <div class="col-md-6 col-xs-12">
@@ -25,6 +25,19 @@
                     <label for="inst">Lead PI Institution</label>
                     <input type="text" class="form-control" id="inst" placeholder="Name of Institution" ng-model="dmpModel.dmp.proposal.leadPiInstitution">
                 </div>
+            </div>
+            <div class="col-md-12 col-xs-12" ng-show="dmpModel.dmp.proposal.leadPi.length>1">
+              <div class="form-group">
+                  <label for="award">Award</label>
+                  <select class="form-control selectpicker"  ng-class="{'selectpicker-selected':award}" ng-options="item.label for item in awards" ng-model="award" ng-change="awardSet()">
+                      <option value="">- Select an Award -</option>
+                  </select>
+                  <input type="text" class="form-control" ng-show="award.label=='Other'" ng-model="dmpModel.award_id" placeholder="Award Number">
+              </div>
+              <div class="well well-sm" ng-show="award.title">
+                <b>{{award.piFirstName}} {{award.piLastName}}</b>, {{award.awardeeName}}, {{award.date}}
+                <br>{{award.title}}
+              </div>
             </div>
             <div class="col-md-12 col-xs-12">
                 <div class="form-group">
