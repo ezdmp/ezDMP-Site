@@ -1,3 +1,7 @@
+google.load('visualization', '1.1', {
+  packages: ['corechart','table','annotatedtimeline','bar']
+});
+
 var ezDmpControllers = angular.module('ezDmpControllers', ['ngSanitize']);
 
 ezDmpControllers.filter("trust", ['$sce', function($sce) {
@@ -631,8 +635,6 @@ ezDmpControllers.controller('productView',['$scope','$http','$q','ezDmpModel','$
       $scope.init();
     }
   });
-
-  
   
   $scope.goBack = function(){
     $scope.dmpModel.saveDmp(function(){
@@ -668,6 +670,218 @@ ezDmpControllers.controller('productView',['$scope','$http','$q','ezDmpModel','$
     });
   };
 }]);
+
+
+ezDmpControllers.controller('statsView',['$scope','$timeout','Account','$http','ENV','vocabControl',
+  function($scope,$timeout,Account,$http,ENV,vocabControl) {
+  
+    // $scope.acct = Account
+    // $scope.loginOrStats = function(service) {
+    //   if ($scope.acct.isAuthenticated()) {
+    //     $location.path("/stats");
+    //   } else {
+    //     $scope.acct.authenticate(service,"/stats");
+    //   }
+    // };
+    // $timeout(function(){ $(".centralcontent").hide().fadeIn(500); }, 500);
+    $scope.plotHeight = 700;
+    $scope.plotWidth = 1200;
+
+    $scope.vocab = vocabControl;
+    $scope.vocab.init(function(){
+      var divisions = $scope.vocab.divisions;
+      var div_list = ['Other'];
+      for (var div of divisions) {
+        div_list.push(div.id);
+      }
+      var repos = $scope.vocab.repositories;
+      var repos_list = [];
+      for (var repo of repos) {
+        repos_list.push(repo.id);
+      }
+      generateCharts(repos_list, div_list);
+    });
+
+    function generateCharts(repos_list, div_list) {
+      $http.get(ENV.api+'ezdmp_data',{})
+      .then(function(response) {
+        var data = response.data;
+        var dmp_stats = {}
+        var min_year = 9999;
+        var max_year = 0;
+        for (var row of data) {
+          var date = row.created.substring(0,4);
+          min_year = Math.min(min_year, parseInt(date));
+          max_year = Math.max(max_year, parseInt(date));
+          if (!(date in dmp_stats)) {
+            dmp_stats[date] = {'repo':{}, 'div':{'total':0}};
+            for (repo of repos_list) {
+              dmp_stats[date]['repo'][repo] = 0;
+            }
+          }
+          // sum up repo submissions from products
+          var products = row.products;
+          for (var p of products) {
+            var repo = p.repository;
+            if (repos_list.includes(repo)){
+              dmp_stats[date]['repo'][repo] +=1;
+            }
+          }
+
+          // sum up DMPs created by NSF division
+          var div = row.fundingDivision || 'Other';
+          dmp_stats[date]['div']['total'] += 1;
+          if (!(div in dmp_stats[date]['div'])) {
+            dmp_stats[date]['div'][div] = 1;
+          } else {
+            dmp_stats[date]['div'][div] += 1;
+          }
+
+        }
+
+        //build arrays to plot
+        repos_list = ['EarthChem', 'MGDS', 'SESAR', 'PetDB', 'USAP-DC','BCO-DMO','IRIS', 'GenBank']
+
+        var repo_array = [['Year']];
+        for (var r of repos_list){
+          repo_array[0].push(r);
+        }
+
+        var div_array = [['Year','Total']];
+        for (var d of div_list) {
+          div_array[0].push(d);
+        }
+
+        for (var y=min_year; y<=max_year; y++) {
+          var r_row = [y.toString()];
+          for (var repo_name of repos_list) {
+            r_row.push(dmp_stats[y]['repo'][repo_name] === undefined ? 0 :dmp_stats[y]['repo'][repo_name]); 
+          }
+          repo_array.push(r_row);
+          
+          var d_row = [y.toString(), dmp_stats[y]['div']['total']];
+          for (var div_name of div_list){
+            d_row.push(dmp_stats[y]['div'][div_name] === undefined ? 0 :dmp_stats[y]['div'][div_name]);
+          }
+          div_array.push(d_row);
+        }
+
+        drawLineChart(repo_array, "Repository Product Submissions by Year", "Year", "Submissions", "repo_chart_div");
+        drawStackedColumnComboChart(div_array, "DMPs Created for Each Funding Division by Year", "Year", "DMPs", "", "div_chart_div",[0], null, true);
+       
+      })
+
+    }
+
+   
+    function drawLineChart(d_array, title, x_title, y_title, target) {
+      var d_data = google.visualization.arrayToDataTable(d_array);
+      var d_options = {
+          legend: {position: 'top', maxLines: 3},
+          title: title,
+          hAxis: {title: x_title},
+          vAxis: {
+              title: y_title,
+              viewWindowMode:'explicit'
+          },
+          height: $scope.plotHeight,
+          width: $scope.plotWidth,
+          lineWidth: 4
+      };
+      var d_chart= new google.visualization.LineChart(document.getElementById(target));
+
+      // make printable version
+      google.visualization.events.addListener(d_chart, 'ready', function () {
+          document.getElementById('png_'+target).outerHTML = '<a id="png_' + target +'" href="' + d_chart.getImageURI() + '">Printable version</a>';
+      });
+
+      d_chart.draw(d_data,d_options); 
+    }
+    
+    
+
+    function drawStackedColumnChart(d_array, title, x_title, y_title, target, colors, isStacked) {
+      var d_data = google.visualization.arrayToDataTable(d_array);
+      var d_options = {
+          title: title,
+          hAxis: {title: x_title},
+          vAxis: {
+              title: y_title,
+              viewWindowMode:'explicit'
+          },
+          height: $scope.plotHeight,
+          width: $scope.plotWidth,
+          legend: {position: 'top', maxLines: 3},
+          isStacked: isStacked,
+          bar: {groupWidth: '75%'},  
+      };
+      if (colors) {
+          d_options.colors = colors;
+      }
+
+      var d_chart= new google.visualization.ColumnChart(document.getElementById(target));
+
+      // make printable version
+      google.visualization.events.addListener(d_chart, 'ready', function () {
+          document.getElementById('png_'+target).outerHTML = '<a id="png_' + target +'" href="' + d_chart.getImageURI() + '">Printable version</a>';
+      });
+
+      d_chart.draw(d_data,d_options);  
+   }
+
+
+    function drawStackedColumnComboChart(d_array, title, x_title, y_title_l, y_title_r, target, line_inds, colors, single_y_axis) {
+      var d_data = google.visualization.arrayToDataTable(d_array);
+      var series = {};
+      for (var i=0; i<d_array[0].length-1; i++) {
+          if (line_inds.includes(i)) {
+              var targetAxis = single_y_axis ? 0 : 1
+              series[i] = {type: 'line', targetAxisIndex: targetAxis};
+          }
+          else {
+              series[i] = {targetAxisIndex: 0};
+          }
+      }
+
+      var vAxes = {
+          0: {title: y_title_l},
+          1: {title: y_title_r, viewWindow: {min:0}}
+      };
+
+      var d_options = {
+          isStacked: true,
+          interpolateNulls: true,
+          legend: {position: 'top', maxLines: 3},
+          title: title,
+          hAxis: {
+              title: x_title, 
+          },
+          vAxes: vAxes,       
+          height: $scope.plotHeight,
+          width: $scope.plotWidth,
+          lineWidth: 4,
+          seriesType: 'bars',
+          bar: {groupWidth: '75%'},
+          series: series
+      };
+      if (colors) {
+          d_options.colors = colors;
+      }
+
+      var d_chart= new google.visualization.ComboChart(document.getElementById(target));
+
+      // make printable version
+      google.visualization.events.addListener(d_chart, 'ready', function () {
+          document.getElementById('png_'+target).outerHTML = '<a id="png_' + target +'" href="' + d_chart.getImageURI() + '">Printable version</a>';
+      });
+
+      d_chart.draw(d_data,d_options);  
+    }
+
+
+
+}]);
+
 
 ezDmpControllers.controller('productRelationshipController', [
   '$scope', '$element', 'title', 'close','toastr','$http','ezDmpModel','vocabControl',

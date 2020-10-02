@@ -94,6 +94,10 @@ ezDmpApp.config([
           controller: 'productView',
           resolve: { productType: function ($route) { $route.current.params.productType = 'workflow'; } }
       }).
+      when('/stats', {
+        templateUrl: 'inc/stats_inc.html',
+        controller: 'statsView'
+      }).
       otherwise({
         redirectTo: '/index'
       });
