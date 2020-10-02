@@ -672,18 +672,10 @@ ezDmpControllers.controller('productView',['$scope','$http','$q','ezDmpModel','$
 }]);
 
 
-ezDmpControllers.controller('statsView',['$scope','$timeout','Account','$http','ENV','vocabControl','$routeParams','$route',
-  function($scope,$timeout,Account,$http,ENV,vocabControl,$routeParams,$route) {
-  
-    // $scope.acct = Account
-    // $scope.loginOrStats = function(service) {
-    //   if ($scope.acct.isAuthenticated()) {
-    //     $location.path("/stats");
-    //   } else {
-    //     $scope.acct.authenticate(service,"/stats");
-    //   }
-    // };
-    // $timeout(function(){ $(".centralcontent").hide().fadeIn(500); }, 500);
+ezDmpControllers.controller('statsView',['$scope','$timeout','$http','ENV','vocabControl','$routeParams','$route',
+  function($scope,$timeout,$http,ENV,vocabControl,$routeParams,$route) {
+
+    $timeout(function(){ $(".centralcontent").hide().fadeIn(500); }, 500);
    
     $scope.path =  $route.current.$$route.originalPath.split(':')[0];
 
@@ -781,7 +773,7 @@ ezDmpControllers.controller('statsView',['$scope','$timeout','Account','$http','
 
         drawLineChart(repo_array, "Repository Product Submissions by Year", "Year", "Submissions", "repo_chart_div");
         drawStackedColumnComboChart(div_array, "DMPs Created for Each Funding Division by Year", "Year", "DMPs", "", "div_chart_div",[0], null, true);
-       
+        $(".ezDmpmask").fadeOut(2000);
       })
 
     }
