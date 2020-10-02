@@ -672,8 +672,8 @@ ezDmpControllers.controller('productView',['$scope','$http','$q','ezDmpModel','$
 }]);
 
 
-ezDmpControllers.controller('statsView',['$scope','$timeout','Account','$http','ENV','vocabControl',
-  function($scope,$timeout,Account,$http,ENV,vocabControl) {
+ezDmpControllers.controller('statsView',['$scope','$timeout','Account','$http','ENV','vocabControl','$routeParams','$route',
+  function($scope,$timeout,Account,$http,ENV,vocabControl,$routeParams,$route) {
   
     // $scope.acct = Account
     // $scope.loginOrStats = function(service) {
@@ -684,8 +684,19 @@ ezDmpControllers.controller('statsView',['$scope','$timeout','Account','$http','
     //   }
     // };
     // $timeout(function(){ $(".centralcontent").hide().fadeIn(500); }, 500);
+   
+    $scope.path =  $route.current.$$route.originalPath.split(':')[0];
+
     $scope.plotHeight = 700;
     $scope.plotWidth = 1200;
+
+    var today = new Date();
+    $scope.min_year = 2012;
+    $scope.max_year = today.getFullYear();
+    $scope.start_year = parseInt($routeParams.start_year);
+    if (!$scope.start_year) { $scope.start_year = $scope.min_year;}
+    $scope.end_year = parseInt($routeParams.end_year); 
+    if (!$scope.end_year) {$scope.end_year = $scope.max_year;}
 
     $scope.vocab = vocabControl;
     $scope.vocab.init(function(){
@@ -703,7 +714,9 @@ ezDmpControllers.controller('statsView',['$scope','$timeout','Account','$http','
     });
 
     function generateCharts(repos_list, div_list) {
-      $http.get(ENV.api+'ezdmp_data',{})
+      var api_url = ENV.api+'ezdmp_data'+'/?start=01/01/'+$scope.start_year+'&end=12/31/'+$scope.end_year;
+      console.log(api_url);
+      $http.get(api_url,{})
       .then(function(response) {
         var data = response.data;
         var dmp_stats = {}
@@ -773,6 +786,10 @@ ezDmpControllers.controller('statsView',['$scope','$timeout','Account','$http','
 
     }
 
+    $scope.reloadData = function() {
+      var url = $scope.path + $scope.start_year + "/" + $scope.end_year;
+      window.location.href = url;
+    }
    
     function drawLineChart(d_array, title, x_title, y_title, target) {
       var d_data = google.visualization.arrayToDataTable(d_array);

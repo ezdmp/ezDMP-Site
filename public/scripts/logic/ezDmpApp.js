@@ -94,7 +94,7 @@ ezDmpApp.config([
           controller: 'productView',
           resolve: { productType: function ($route) { $route.current.params.productType = 'workflow'; } }
       }).
-      when('/stats', {
+      when('/stats/:start_year?/:end_year?', {
         templateUrl: 'inc/stats_inc.html',
         controller: 'statsView'
       }).

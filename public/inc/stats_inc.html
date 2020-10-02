@@ -2,6 +2,15 @@
     <div class="col-xs-12">
         <div>
             <div class="bigtitle">ezDMP Statistics</div>
+
+            <form>
+                Start Year:
+                <input type="number" ng-model="start_year" min="{{min_year}}" max="{{end_year}}">
+                End Year:
+                <input type="number" ng-model="end_year" min="{{start_year}}" max="{{max_year}}">
+                <button ng-click="reloadData()">Replot</button>
+
+            </form>
             <!-- <div ng-show="acct.isAuthenticated()"> -->
         
                     <div id="repo_chart_div"></div>
