@@ -98,6 +98,10 @@ ezDmpApp.config([
         templateUrl: 'inc/stats_inc.html',
         controller: 'statsView'
       }).
+      when('/api', {
+        templateUrl: 'inc/api_docs_inc.html',
+        controller: 'indexView'
+      }).
       otherwise({
         redirectTo: '/index'
       });

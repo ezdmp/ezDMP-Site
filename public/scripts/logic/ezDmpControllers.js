@@ -710,7 +710,7 @@ ezDmpControllers.controller('statsView',['$scope','$timeout','$http','ENV','voca
       console.log(api_url);
       $http.get(api_url,{})
       .then(function(response) {
-        var data = response.data;
+        var data = response.data.data;
         var dmp_stats = {}
         var min_year = 9999;
         var max_year = 0;
