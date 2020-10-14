@@ -712,6 +712,10 @@ ezDmpControllers.controller('statsView',['$scope','$timeout','$http','ENV','voca
       .then(function(response) {
         var data = response.data.data;
         var dmp_stats = {}
+        var repo_counts = {}
+        for (repo of repos_list) {
+          repo_counts[repo] = 0;
+        }
         var min_year = 9999;
         var max_year = 0;
         for (var row of data) {
@@ -728,8 +732,10 @@ ezDmpControllers.controller('statsView',['$scope','$timeout','$http','ENV','voca
           var products = row.products;
           for (var p of products) {
             var repo = p.repository;
+            if (repo == 'PetDB') repo = 'EarthChem';
             if (repos_list.includes(repo)){
-              dmp_stats[date]['repo'][repo] +=1;
+              dmp_stats[date]['repo'][repo] += 1;
+              repo_counts[repo] += 1;
             }
           }
 
@@ -745,11 +751,18 @@ ezDmpControllers.controller('statsView',['$scope','$timeout','$http','ENV','voca
         }
 
         //build arrays to plot
-        repos_list = ['EarthChem', 'MGDS', 'SESAR', 'PetDB', 'USAP-DC','BCO-DMO','IRIS', 'GenBank']
+        // first take the 10 most popular repos
+        var items = Object.keys(repo_counts).map(function(key) {
+          return [key, repo_counts[key]];
+        });
+        items.sort(function(first, second) {
+          return second[1] - first[1];
+        });
+        top_repos = items.slice(0,10);
 
         var repo_array = [['Year']];
-        for (var r of repos_list){
-          repo_array[0].push(r);
+        for (var r of top_repos){
+          repo_array[0].push(r[0]);
         }
 
         var div_array = [['Year','Total']];
@@ -759,8 +772,8 @@ ezDmpControllers.controller('statsView',['$scope','$timeout','$http','ENV','voca
 
         for (var y=min_year; y<=max_year; y++) {
           var r_row = [y.toString()];
-          for (var repo_name of repos_list) {
-            r_row.push(dmp_stats[y]['repo'][repo_name] === undefined ? 0 :dmp_stats[y]['repo'][repo_name]); 
+          for (var repo of top_repos) {
+            r_row.push(dmp_stats[y]['repo'][repo[0]] === undefined ? 0 :dmp_stats[y]['repo'][repo[0]]); 
           }
           repo_array.push(r_row);
           
@@ -771,7 +784,7 @@ ezDmpControllers.controller('statsView',['$scope','$timeout','$http','ENV','voca
           div_array.push(d_row);
         }
 
-        drawLineChart(repo_array, "Repository Product Submissions by Year", "Year", "Submissions", "repo_chart_div");
+        drawLineChart(repo_array, "Target Repositories Identified in DMPs", "Year", "Submissions", "repo_chart_div");
         drawStackedColumnComboChart(div_array, "DMPs Created for Each Funding Division by Year", "Year", "DMPs", "", "div_chart_div",[0], null, true);
         $(".ezDmpmask").fadeOut(2000);
       })
