@@ -57,6 +57,9 @@ angular.module('ezDmpApp')
       isAuthorized: function() {
           return service.user.authorized;
       },
+      isAdmin: function() {
+        return service.user.isAdmin;
+      },
       isRegistered: function() {
           return service.user.policyAccepted;
       },

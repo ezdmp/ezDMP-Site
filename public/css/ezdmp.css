@@ -6180,3 +6180,22 @@ div[toast].ng-leave.ng-leave-active {
     font-size: 13px;
     font-family: "michromaregular", Helvetica;
 }
+
+.thead-dark {
+    background-color: rgba(0, 0, 0, .8);
+    color:white;
+}
+
+.thead-dark th {
+    text-align: center;
+}
+
+input[readonly] {
+    background-color: #e3e3e3;
+    opacity: 1;
+}
+
+.required:before {
+    content:" *";
+    color: red;
+}

@@ -1,0 +1,75 @@
+<div class="container">
+    <div class="col-xs-12">
+        <div>
+            <div class="bigtitle">Admin Page</div>
+            
+            <div ng-show="acct.isAuthenticated() && acct.isAdmin()">
+
+
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+                          <a href="javascript:;" data-toggle="collapse" data-parent="#accordion" data-target="#collapseRepos">
+                            Edit Repositories Table
+                          </a>
+                        </h4>
+                      </div>
+                      <div id="collapseRepos" class="panel-collapse collapse ">
+                        <div class="panel-body">
+                            <button ng-click="addRepo()" title="Add Repository" style="margin-bottom: 10px;"><h4><i class="fas fa-plus"></i> Add Respository</h4></button>
+                            <table class="table-bordered table-striped">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th></th>
+                                        <th>id</th>
+                                        <th>label</th>
+                                        <th>repository_type</th>
+                                        <th>description</th>
+                                        <th>url</th>
+                                        <th>directorates</th>
+                                        <th>product types</th>
+                                        <th>subdisciplines</th>
+                                    </tr>    
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="repo in vocab.repositories | orderBy:'id'">
+                                        <td>
+                                            <button ng-click="editRepo(repo)" title="Edit Repository"><i class="far fa-edit"></i></button>
+                                            <button ng-click="deleteRepo(repo)" title="Delete Repository"><i class="fas fa-trash"></i></button>
+                                        </td>
+                                        <td>{{repo.id}}</td>
+                                        <td>{{repo.label}}</td>
+                                        <td>{{repo.repository_type}}</td>
+                                        <td>{{repo.description}}</td>
+                                        <td>{{repo.url}}</td>
+                                        <td><p ng-repeat="d in repo.directorates" ng-hide="d.id=='Delete Me'">{{d.id}}</p></td>
+                                        <td><p ng-repeat="p in repo.product_types" ng-hide="p.id=='Delete Me'">{{p.id}}</p></td>
+                                        <td><p ng-repeat="s in repo.subdisciplines" ng-hide="s.id=='Delete Me'">{{s.id}}</p></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="!acct.isAdmin()">
+                <div><span>This page can only be accessed with an admin account</span></div>
+            </div>
+
+            <div class="browsebuttondiv" ng-show="!acct.isAuthenticated()">
+                <a class="ezdmpbutton" style="cursor:pointer" ng-click="loginOrAdmin('google')">
+                    <div><img style="height:25px; padding-right:5px" src="images/google_PNG19630.png"><span>Log In
+                            with Google</span></div>
+                </a>
+            </div>
+            <div class="browsebuttondiv" style="margin-top:10px;" ng-show="!acct.isAuthenticated()">
+                <a class="ezdmpbutton" style="cursor:pointer" ng-click="loginOrAdmin('orcid')">
+                    <div><img style="height:25px; padding-right:10px" src="images/orcidLogo.png"><span>Log In with
+                            OrcID</span></div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

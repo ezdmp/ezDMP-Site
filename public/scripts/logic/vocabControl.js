@@ -9,6 +9,7 @@ ezDmpControllers.factory('vocabControl',['$http','$rootScope','$q','ENV',functio
       relationships: null,
       divisions: null,
       product_types: null,
+      repository_types: null,
       initiatied: false,
       
       init: function(callback) {
@@ -24,6 +25,7 @@ ezDmpControllers.factory('vocabControl',['$http','$rootScope','$q','ENV',functio
             directorates : $http.get(ENV.api+'directorates',{}),
             divisions : $http.get(ENV.api+'divisions',{}),
             product_types : $http.get(ENV.api+'product_types',{}),
+            repository_types : $http.get(ENV.api+'repository_types',{}),
             relationships : $http.get(ENV.api+'relation_types',{}) 
           };
 
@@ -36,6 +38,7 @@ ezDmpControllers.factory('vocabControl',['$http','$rootScope','$q','ENV',functio
             service.directorates = r.directorates.data.data;
             service.divisions = r.divisions.data.data;
             service.product_types = r.product_types.data.data;
+            service.repository_types = r.repository_types.data.data;
             service.relationships = r.relationships.data.data;
             if (typeof callback ==='function') {
               callback(false);

@@ -944,3 +944,195 @@ function($scope, $element, title, close,toastr,$http,ezDmpModel,vocabControl) {
   };
 
 }]);
+
+ezDmpControllers.controller('adminView',['$scope','Account','$location','vocabControl','ModalService','toastr','$http','ENV',
+ function($scope,Account,$location,vocabControl,ModalService,toastr,$http,ENV) {
+  $scope.acct = Account
+  $scope.loginOrAdmin = function(service) {
+    if ($scope.acct.isAuthenticated() && $scope.acct.isAdmin()) {
+      $location.path("/admin");
+    } else {
+      $scope.acct.authenticate(service,"/admin");
+    }
+  };
+
+  $scope.vocab = vocabControl;
+  $scope.vocab.init(function(){});
+
+  $scope.addRepo = function(){
+    var repo = {
+      id:null,
+      label:null,
+      repository_type:null,
+      description:null,
+      url:null,
+      directorates:[],
+      product_types:[],
+      subdisciplines:[]
+    };
+    ModalService.showModal({
+      templateUrl: "/inc/editRepo.html",
+      controller: "editRepoController",
+      preClose: (modal) => {
+          modal.element.modal('hide');
+      },
+      inputs: {
+        title: "Add Repository",
+        repo: repo,
+        edit: false
+      }
+    }).then(function(modal) {
+      modal.element.on('hidden.bs.modal', function () {
+          if (!modal.closed) {
+            modal.close.then(function(){});  
+          }
+      });
+      modal.element.modal();
+    });
+  }
+
+  $scope.editRepo = function(repo){
+    console.log(repo)
+    ModalService.showModal({
+      templateUrl: "/inc/editRepo.html",
+      controller: "editRepoController",
+      preClose: (modal) => {
+          modal.element.modal('hide');
+      },
+      inputs: {
+        title: "Edit Repository",
+        repo: repo,
+        edit: true
+      }
+    }).then(function(modal) {
+      modal.element.on('hidden.bs.modal', function () {
+          if (!modal.closed) {
+            modal.close.then(function(){});  
+          }
+      });
+      modal.element.modal();
+    });
+  }
+
+  $scope.deleteRepo = function(repo) {
+    ModalService.showModal({
+      templateUrl: "/inc/modalAreYouSure.html",
+      controller: "areYouSureController",
+      preClose: (modal) => {
+          modal.element.modal('hide');
+      },
+      inputs: {
+        title: "Delete Repository",
+        body: "Are you sure you wish to delete the repository " + repo.id + "?"
+      }
+    }).then(function(modal) {
+      modal.element.on('hidden.bs.modal', function () {
+          if (!modal.closed) {
+            modal.close.then(function(){});  
+          }
+      });
+      modal.element.modal();
+      modal.close.then(function(result) {
+        if (result) {
+          $http.post(ENV.api+'deleteRepository',{repo:repo})
+            .then(function(response) {
+              toastr.success('Repository successfully deleted')
+              const index = $scope.vocab.repositories.indexOf(repo);
+              if (index > -1) $scope.vocab.repositories.splice(index,1);
+             
+            })
+            .catch(function(response) {
+              toastr.error('Repository delete failed: ' + response.status)
+            });
+        } else {}
+        
+      });
+    });
+  }
+}]);
+
+ezDmpControllers.controller('editRepoController', [
+  '$scope', 'title', 'repo', 'edit', 'close','$http','vocabControl','ENV','toastr',
+function($scope,title,repo,edit,close,$http,vocabControl,ENV,toastr) {
+  //make copy of original
+  console.log(repo)
+  var repo_orig = JSON.parse(JSON.stringify(repo));
+  $scope.title = title;
+  $scope.repo = repo;
+  $scope.is_edit = edit;
+
+  $scope.vocab = vocabControl;
+  $scope.vocab.init(function(){
+    $scope.repo_types = [];
+    for (var type of $scope.vocab.repository_types) $scope.repo_types.push(type.id);
+    
+    $scope.directorates = ['Delete Me'];
+    for (var dir of $scope.vocab.directorates) $scope.directorates.push(dir.id);
+    $scope.product_types = ['Delete Me'];
+    for (var type of $scope.vocab.product_types) $scope.product_types.push(type.id);
+    $scope.subdisciplines = ['Delete Me'];
+    for (var sub of $scope.vocab.subdisciplines) $scope.subdisciplines.push(sub.id);
+  });
+
+  $scope.enableDisable = function () {
+    var dirGood = false;
+    for (var d of $scope.repo.directorates) {
+      if (d.id != '' && d.id != "Delete Me") dirGood = true;
+    }
+    var ptGood = false;
+    for (var p of $scope.repo.product_types) {
+      if (p.id != '' && p.id != "Delete Me") ptGood = true;
+    }
+    var subGood = false;
+    for (var s of $scope.repo.subdisciplines) {
+      if (s.id != '' && s.id != "Delete Me") subGood = true;
+    }
+    $scope.complete = $scope.repo.id && $scope.repo.description && dirGood && ptGood && subGood;
+  }
+  $scope.enableDisable();
+
+  $scope.close = function() {
+    //revert to original details
+    for (const [key, value] of Object.entries(repo_orig)) {
+      $scope.repo[key] = value;
+    }
+    close(false, 500);
+  };
+  
+  $scope.edit = function() {
+    //submit change to database
+    $http.post(ENV.api+'updateRepository',{repo:repo})
+    .then(function(response) {
+      toastr.success('Repository successfully edited')
+    })
+    .catch(function(response) {
+      console.log("Request failed " + response.status);
+      toastr.error('Repository edit failed: ' + response.status)
+    });
+    close(true, 500);
+  };
+
+  $scope.add = function() {
+    //submit change to database
+    $http.post(ENV.api+'newRepository',{repo:repo})
+    .then(function(response) {
+      toastr.success('Repository successfully created')
+      $scope.vocab.repositories.push(repo);
+    })
+    .catch(function(response) {
+      console.log("Request failed " + response.status);
+      toastr.error('Repository creation failed: ' + response.status)
+    });
+    close(true, 500);
+  };
+
+  $scope.addDirectorate = function() {
+    $scope.repo.directorates.push({});
+  }
+  $scope.addProductType = function() {
+    $scope.repo.product_types.push({});
+  }
+  $scope.addSubdiscipline = function() {
+    $scope.repo.subdisciplines.push({});
+  }
+}]);

@@ -10,6 +10,7 @@
   <script type="text/javascript" src="/scripts/vendor/bootstrap-all.min.js"></script>
   <script type="text/javascript" src="/scripts/vendor/angular-all.min.js"></script>
   <script src="https://www.google.com/jsapi"></script>
+  <script src="https://kit.fontawesome.com/0f630d0635.js" crossorigin="anonymous"></script>
   <script src="/scripts/logic/config.js"></script>
   <script src="/scripts/logic/ezDmpApp.js"></script>
   <script src="/scripts/logic/ezDmpControllers.js"></script>
@@ -53,6 +54,7 @@
               </li>
               <li><a href="/repositories">Repositories</a></li>
               <li ng-if="acct.isAuthenticated()"><a href="/profile">My DMPs</a></li>
+              <li ng-if="acct.isAuthenticated() && acct.isAdmin()"><a href="/admin">Admin</a></li>
             </ul>
             <ul ng-if="!acct.isAuthenticated()" class="nav navbar-nav navbar-right">
               <li class="dropdown">

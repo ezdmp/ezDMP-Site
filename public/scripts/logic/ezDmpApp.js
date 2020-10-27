@@ -102,6 +102,10 @@ ezDmpApp.config([
         templateUrl: 'inc/api_docs_inc.html',
         controller: 'indexView'
       }).
+      when('/admin', {
+        templateUrl: 'inc/admin_inc.html',
+        controller: 'adminView'
+      }).
       otherwise({
         redirectTo: '/index'
       });

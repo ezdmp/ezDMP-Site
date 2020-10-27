@@ -1,0 +1,45 @@
+<div class="modal fade" ng-click="cancel($event)" data="modalBackground">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">{{title}}</h4>
+      </div>
+      <span class="required" style="font-family: Georiga,'Times New Roman',Times,serif; color: #002783; float: right"> indicates a required field</span>
+
+      <div class="modal-body">
+        <form>
+            <label for="repo_id" class="required">ID:</label><br>
+            <input type="text" size="80" ng-model="repo.id" id="repo_id" name="repo_id" ng-readonly="is_edit" ng-keyup="enableDisable()"><br><br>
+            <label for="repo_label">Label: </label><br>
+            <input type="text" size="80" ng-model="repo.label" id="repo_label" name="repo_label"><br><br>
+            <label for="repo_type">Repository Type: </label><br>
+            <select id="repo_type" name="repo_type" ng-options="type for type in repo_types" ng-model="repo.repository_type"></select><br><br>
+            <label for="repo_description" class="required">Description: </label><br>
+            <textarea cols="80" rows="3" ng-model="repo.description" id="repo_description" name="repo_description" ng-keyup="enableDisable()"></textarea><br><br>
+            <label for="repo_url">URL: </label><br>
+            <input type="text" size="80" ng-model="repo.url" id="repo_url" name="repo_url"><br><br>
+            <label for="directorates" class="required">Directorates: </label><br>
+            <select id="directorates" ng-repeat="d in repo.directorates" ng-options="dir for dir in directorates" ng-model="d.id" ng-change="enableDisable()" ng-hide="d.id=='Delete Me'"></select>
+            <button ng-click="addDirectorate()" title="Add Directorate"><i class="fas fa-plus"></i></button>
+            <br><br>
+            <label for="product_types" class="required">Product Types: </label><br>
+            <select id="product_types" ng-repeat="p in repo.product_types" ng-options="type for type in product_types" ng-model="p.id" ng-change="enableDisable()" ng-hide="p.id=='Delete Me'"></select>
+            <button ng-click="addProductType()" title="Add Product Type"><i class="fas fa-plus"></i></button>
+            <br><br>
+            <label for="subdisciplines" class="required">Subdisciplines: </label><br>
+            <select id="subdisciplines" ng-repeat="s in repo.subdisciplines"  ng-options="sub for sub in subdisciplines" ng-model="s.id" ng-change="enableDisable()" ng-hide="s.id=='Delete Me'"></select>
+            <button ng-click="addSubdiscipline()" title="Add Subdiscipline"><i class="fas fa-plus"></i></button>
+            <br><br>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+          <button type="button" ng-click="edit()" class="btn btn-primary" ng-if="is_edit" ng-disabled="!complete">Update</button>
+          <button type="button" ng-click="add()" class="btn btn-primary" ng-if="!is_edit" ng-disabled="!complete">Create</button>
+          <button type="button" ng-click="close()" class="btn btn-primary">Cancel</button>
+      </div>
+		</form>
+    </div>
+  </div>
+</div>
