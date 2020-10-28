@@ -1077,11 +1077,12 @@ ezDmpControllers.controller('adminView',['$scope','Account','$location','vocabCo
     var directorate = $scope.filter.directorate ==  '' || JSON.stringify(item.directorates).indexOf($scope.filter.directorate) != -1;
     var product_type = $scope.filter.product_type ==  '' || JSON.stringify(item.product_types).indexOf($scope.filter.product_type) != -1;
     var subdiscipline = $scope.filter.subdiscipline ==  '' || JSON.stringify(item.subdisciplines).indexOf($scope.filter.subdiscipline) != -1;
-    return repo_type && directorate && product_type && subdiscipline;
+    var free_text = $scope.free_text == '' || JSON.stringify(item).toLowerCase().indexOf($scope.filter.free_text.toLowerCase()) != -1;
+    return repo_type && directorate && product_type && subdiscipline && free_text;
   }
 
   $scope.resetFilter = function() {
-    $scope.filter = {repo_type:'', directorate:'', product_type:'', subdiscipline:''};
+    $scope.filter = {repo_type:'', directorate:'', product_type:'', subdiscipline:'', free_text:''};
   }
   $scope.resetFilter();
 

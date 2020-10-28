@@ -27,8 +27,10 @@
                             <label for="product_type">Product Type </label>
                             <select id="product_type" ng-options="type for type in product_types" ng-model="filter.product_type"></select>
                             <label for="subdiscipline">Subdiscipline </label>
-                            <select id="subdiscipline" ng-options="sub for sub in subdisciplines | orderBy:sub" ng-model="filter.subdiscipline"></select>
-                            <button ng-click="resetFilter()">Reset</button>
+                            <select id="subdiscipline" ng-options="sub for sub in subdisciplines | orderBy:sub" ng-model="filter.subdiscipline"></select><br>
+                            <label for="free_text">Free Text Search</label>
+                            <input id="free_text" ng-model="filter.free_text">
+                            <button ng-click="resetFilter()">Reset All Filters</button>
 
                             <table class="table-bordered table-striped">
                                 <thead class="thead-dark">
