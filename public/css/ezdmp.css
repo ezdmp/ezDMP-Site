@@ -6199,3 +6199,6 @@ input[readonly] {
     content:" *";
     color: red;
 }
+.white {
+    color: #ffffff !important;
+}

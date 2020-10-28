@@ -18,13 +18,25 @@
                       <div id="collapseRepos" class="panel-collapse collapse ">
                         <div class="panel-body">
                             <button ng-click="addRepo()" title="Add Repository" style="margin-bottom: 10px;"><h4><i class="fas fa-plus"></i> Add Respository</h4></button>
+                            
+                            <h3>Filter by:</h3>
+                            <label for="repo_type">Repository Type </label>
+                            <select id="repo_type" ng-options="type for type in repo_types" ng-model="filter.repo_type"></select>
+                            <label for="directorate">Directorate </label>
+                            <select id="directorate" ng-options="dir for dir in directorates" ng-model="filter.directorate"></select>
+                            <label for="product_type">Product Type </label>
+                            <select id="product_type" ng-options="type for type in product_types" ng-model="filter.product_type"></select>
+                            <label for="subdiscipline">Subdiscipline </label>
+                            <select id="subdiscipline" ng-options="sub for sub in subdisciplines | orderBy:sub" ng-model="filter.subdiscipline"></select>
+                            <button ng-click="resetFilter()">Reset</button>
+
                             <table class="table-bordered table-striped">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th></th>
-                                        <th>id</th>
-                                        <th>label</th>
-                                        <th>repository_type</th>
+                                        <th><a class="white" href="" ng-click="orderByMe('id')">id</a></th>
+                                        <th><a class="white" href="" ng-click="orderByMe('label')">Label</a></th>
+                                        <th><a class="white" href="" ng-click="orderByMe('repository_type')">repository_type</a></th>
                                         <th>description</th>
                                         <th>url</th>
                                         <th>directorates</th>
@@ -33,7 +45,7 @@
                                     </tr>    
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="repo in vocab.repositories | orderBy:'id'">
+                                    <tr ng-repeat="repo in vocab.repositories | orderBy: [orderBy, 'id'] | filter:filterFunction">
                                         <td>
                                             <button ng-click="editRepo(repo)" title="Edit Repository"><i class="far fa-edit"></i></button>
                                             <button ng-click="deleteRepo(repo)" title="Delete Repository"><i class="fas fa-trash"></i></button>

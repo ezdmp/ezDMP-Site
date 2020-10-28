@@ -957,7 +957,18 @@ ezDmpControllers.controller('adminView',['$scope','Account','$location','vocabCo
   };
 
   $scope.vocab = vocabControl;
-  $scope.vocab.init(function(){});
+  $scope.vocab.init(function(){
+    $scope.repo_types = [''];
+    for (var type of $scope.vocab.repository_types) $scope.repo_types.push(type.id);
+    $scope.directorates = [''];
+    for (var dir of $scope.vocab.directorates) $scope.directorates.push(dir.id);
+    $scope.product_types = [''];
+    for (var type of $scope.vocab.product_types) $scope.product_types.push(type.id);
+    $scope.subdisciplines = [''];
+    for (var sub of $scope.vocab.subdisciplines) $scope.subdisciplines.push(sub.id);
+  });
+
+  $scope.orderBy = 'id';
 
   $scope.addRepo = function(){
     var repo = {
@@ -1049,6 +1060,31 @@ ezDmpControllers.controller('adminView',['$scope','Account','$location','vocabCo
       });
     });
   }
+
+  $scope.orderByMe = function (x) {
+    if ($scope.orderBy === x) {
+      $scope.orderBy = '-' + x;
+      $scope.reverse = !$scope.reverse;
+    } else {
+      $scope.orderBy = x;
+      $scope.reverse = false;
+    }
+  }
+
+  $scope.filterFunction = function(item) {
+    //filter the rows in the table
+    var repo_type = $scope.filter.repo_type ==  '' || $scope.filter.repo_type == item.repository_type;
+    var directorate = $scope.filter.directorate ==  '' || JSON.stringify(item.directorates).indexOf($scope.filter.directorate) != -1;
+    var product_type = $scope.filter.product_type ==  '' || JSON.stringify(item.product_types).indexOf($scope.filter.product_type) != -1;
+    var subdiscipline = $scope.filter.subdiscipline ==  '' || JSON.stringify(item.subdisciplines).indexOf($scope.filter.subdiscipline) != -1;
+    return repo_type && directorate && product_type && subdiscipline;
+  }
+
+  $scope.resetFilter = function() {
+    $scope.filter = {repo_type:'', directorate:'', product_type:'', subdiscipline:''};
+  }
+  $scope.resetFilter();
+
 }]);
 
 ezDmpControllers.controller('editRepoController', [
